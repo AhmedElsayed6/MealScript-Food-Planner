@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="myButton">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_marginStart">20dp</item>
+        <item name="android:layout_marginEnd">20dp</item>
+        <item name="android:layout_height">60dp</item>
+    </style>
+
+    <style name="myText">
+        <item name="android:fontFamily">@font/roboto_medium_italic</item>
+
+    </style>
+
+
+</resources>

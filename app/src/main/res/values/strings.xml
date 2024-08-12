@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">MealScript</string>
+    <string name="welcomeScreenbtnSignup">Sign up with Email</string>
+    <string name="welcomeScreenLoginText"><u>Log In</u></string>
+    <string name="welcomeScreenText">Already have an account?</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>

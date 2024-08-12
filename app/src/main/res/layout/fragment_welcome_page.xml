@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".WelcomePage">
+
+    <VideoView
+        android:id="@+id/videoViewWelcome"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageView
+        android:id="@+id/imageViewWelcome"
+        android:layout_width="371dp"
+        android:layout_height="335dp"
+        android:layout_marginTop="50dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/videoViewWelcome"
+        app:srcCompat="@drawable/logo" />
+
+    <Button
+        android:id="@+id/btnWelcomeSignupEmail"
+        style="@style/myButton"
+        android:layout_height="60dp"
+        android:layout_marginTop="120dp"
+        android:text="@string/welcomeScreenbtnSignup"
+        app:cornerRadius="@dimen/welcomeScreenBtns"
+        app:icon="@drawable/email"
+        app:iconGravity="textEnd"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="50"
+        app:layout_constraintStart_toStartOf="@+id/videoViewWelcome"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewWelcome" />
+
+    <Button
+        android:id="@+id/btnWelcomeGoogle"
+        style="@style/myButton"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="@color/md_theme_background"
+        app:cornerRadius="@dimen/welcomeScreenBtns"
+        app:icon="@drawable/googlelogo"
+        app:iconGravity="textStart"
+        app:iconSize="40dp"
+        app:iconTint="@null"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnWelcomeSignupEmail" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnWelcomeGoogle">
+
+        <TextView
+            android:id="@+id/textView2"
+            style="@style/myText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/welcomeScreenText"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/textView3"
+            style="@style/myText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="@string/welcomeScreenLoginText"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/btnWelcomePause"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:backgroundTint="#77181D18"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/play" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
