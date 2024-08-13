@@ -14,15 +14,17 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mealscript.R;
+import com.yuyakaido.android.cardstackview.CardStackLayoutManager;
+import com.yuyakaido.android.cardstackview.CardStackView;
 
 import java.util.List;
 
 public class CardStackAdapter extends RecyclerView.Adapter<CardStackAdapter.ViewHolder> {
 
     private List<CardItem> items;
-    HomePage page ; 
+    CardStackView page ;
 
-    public CardStackAdapter(List<CardItem> items , HomePage page ) {
+    public CardStackAdapter(List<CardItem> items , CardStackView page ) {
         this.items = items;
         this.page = page;
     }
@@ -39,7 +41,7 @@ public class CardStackAdapter extends RecyclerView.Adapter<CardStackAdapter.View
         CardItem item = items.get(position);
         holder.textView.setText(item.getText());
         holder.imageView.setImageResource(item.getImageResId());
-        holder.undo.setOnClickListener((e)->{page.cardStackView.rewind();});
+        holder.undo.setOnClickListener((e)->{page.rewind();});
         holder.cardHolder.setOnClickListener((e)->{
             Toast.makeText(page.getContext(), "Clicked", Toast.LENGTH_SHORT).show();
         });

@@ -40,10 +40,11 @@ dependencies {
     implementation(libs.navigation.fragment)
     implementation(libs.navigation.ui)
     implementation(libs.core.animation)
+    implementation(libs.legacy.support.v4)
     testImplementation(libs.junit)
     implementation ("com.google.android.material:material:1.6.1")
     implementation ("com.github.yuyakaido:CardStackView:v2.3.4")
-
+    implementation ("androidx.recyclerview:recyclerview:1.2.1")
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
 }

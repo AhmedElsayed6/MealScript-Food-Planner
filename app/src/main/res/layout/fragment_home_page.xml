@@ -7,6 +7,14 @@
     tools:context=".Home.HomePage">
 
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbarLogin"
         android:layout_width="match_parent"
@@ -14,11 +22,12 @@
         android:background="@color/md_theme_background"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
+        android:visibility="gone"
+        app:elevation="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:navigationIcon="@drawable/arrowback"
-        app:elevation="10dp"
         app:title=" " />
 
 
@@ -29,6 +38,7 @@
         android:layout_centerInParent="true"
         android:clipToPadding="false"
         android:padding="16dp"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
