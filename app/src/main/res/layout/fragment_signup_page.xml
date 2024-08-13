@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+tools:context=".Auth.Views.signupPage" >
+
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/textInputSignupPasswordConfirm"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/roboto_medium_italic"
+        android:hint="@string/signupScreenConfirmPasswordText"
+        android:inputType="text|textPassword"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/textInputSignupPassword"
+        app:layout_constraintStart_toStartOf="@+id/textInputSignupPassword"
+        app:layout_constraintTop_toBottomOf="@+id/textInputSignupPassword" />
+
+    <androidx.appcompat.widget.Toolbar
+    android:id="@+id/toolbarLogin1"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/md_theme_background"
+    android:minHeight="?attr/actionBarSize"
+    android:theme="?attr/actionBarTheme"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:navigationIcon="@drawable/arrowback"
+    app:elevation="10dp"
+    app:title=" " />
+
+    <TextView
+        android:id="@+id/textView41"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/roboto_medium_italic"
+        android:text="@string/signupScreenSignupText"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbarLogin1" />
+
+    <TextView
+        android:id="@+id/textView51"
+        android:layout_width="366dp"
+        android:layout_height="99dp"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/roboto_medium_italic"
+        android:text="@string/signupScreenRandomText"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/textView41"
+        app:layout_constraintTop_toBottomOf="@+id/textView41" />
+
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/textInputSignupDisplayName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/roboto_medium_italic"
+        android:hint="@string/signupScreenDisplayNameText"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/textView51"
+        app:layout_constraintStart_toStartOf="@+id/textView51"
+        app:layout_constraintTop_toBottomOf="@+id/textView51" />
+
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/textInputSignupEmail"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/roboto_medium_italic"
+        android:hint="@string/signupScreenEmailText"
+        android:inputType="text|textPassword"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/textInputSignupDisplayName"
+        app:layout_constraintStart_toStartOf="@+id/textInputSignupDisplayName"
+        app:layout_constraintTop_toBottomOf="@+id/textInputSignupDisplayName" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/textInputSignupPassword"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/roboto_medium_italic"
+        android:hint="@string/signupScreenPasswordText"
+        android:inputType="text|textPassword"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/textInputSignupEmail"
+        app:layout_constraintStart_toStartOf="@+id/textInputSignupEmail"
+        app:layout_constraintTop_toBottomOf="@+id/textInputSignupEmail" />
+
+    <Button
+        android:id="@+id/btnSignupSignup"
+        style="@style/myButton"
+        android:layout_marginTop="30dp"
+        android:text="@string/signupScreenSignupButtonText"
+        android:theme="@style/myButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputSignupPasswordConfirm" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

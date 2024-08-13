@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".WelcomePage">
+    tools:context=".Auth.Views.WelcomePage">
 
     <VideoView
         android:id="@+id/videoViewWelcome"
@@ -33,6 +33,7 @@
         style="@style/myButton"
         android:layout_height="60dp"
         android:layout_marginTop="120dp"
+        android:layout_marginBottom="40dp"
         android:text="@string/welcomeScreenbtnSignup"
         app:cornerRadius="@dimen/welcomeScreenBtns"
         app:icon="@drawable/email"

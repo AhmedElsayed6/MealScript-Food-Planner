@@ -8,7 +8,11 @@
 
     <fragment
         android:id="@+id/fragmentContainerView"
-        android:name="com.example.mealscript.WelcomePage"
+        android:name="com.example.mealscript.Auth.Views.signupPage"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

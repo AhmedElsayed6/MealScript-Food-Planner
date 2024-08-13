@@ -3,16 +3,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/welcomePage">
+    app:startDestination="@id/signupPage">
 
     <fragment
         android:id="@+id/welcomePage"
-        android:name="com.example.mealscript.WelcomePage"
+        android:name="com.example.mealscript.Auth.Views.WelcomePage"
         android:label="fragment_welcome_page"
         tools:layout="@layout/fragment_welcome_page" />
     <fragment
         android:id="@+id/loginPage"
-        android:name="com.example.mealscript.LoginPage"
+        android:name="com.example.mealscript.Auth.Views.LoginPage"
         android:label="fragment_login_page"
         tools:layout="@layout/fragment_login_page" />
+    <fragment
+        android:id="@+id/signupPage"
+        android:name="com.example.mealscript.Auth.Views.signupPage"
+        android:label="fragment_signup_page"
+        tools:layout="@layout/fragment_signup_page" />
 </navigation>

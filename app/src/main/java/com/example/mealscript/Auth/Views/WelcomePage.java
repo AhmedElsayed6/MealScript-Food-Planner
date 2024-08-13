@@ -1,4 +1,4 @@
-package com.example.mealscript;
+package com.example.mealscript.Auth.Views;
 
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -12,6 +12,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.VideoView;
+
+import com.example.mealscript.R;
 
 /**
  * A simple {@link Fragment} subclass.

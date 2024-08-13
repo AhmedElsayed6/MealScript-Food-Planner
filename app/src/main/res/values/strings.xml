@@ -5,5 +5,19 @@
     <string name="welcomeScreenText">Already have an account?</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-
+    <string name="loginScreenLoginText">Log In</string>
+    <string name="loginScreenWelcomeBackTxt">Great to See You Again!\nYour next delicious meal is just a tap away. Get inspired and plan your perfect menu!</string>
+    <string name="loginScreenUsernameText">Username</string>
+    <string name="loginScreenPasswordText">Password</string>
+    <string name="loginScreenForgotPasswordText"><u>I FORGOT MY PASSWORD</u></string>
+    <string name="loginScreenLoginButtonText">Login</string>
+    <string name="loginScreenEmailText">Email</string>
+    <string name="signupScreenSignupText">Sign Up</string>
+    <string name="signupScreenRandomText">Take control of your weekly meals with our intuitive meal planning feature. Just like a well-written script, each meal is a chance to create a masterpiece in your kitchen.</string>
+    <string name="signupScreenDisplayNameText">Display Name</string>
+    <string name="signupScreenEmailText">Email</string>
+    <string name="signupScreenPasswordText">Password</string>
+    <string name="signupScreenConfirmPasswordText">Confirm Password</string>
+    <string name="signupScreenSignupButtonText">Signup</string>
+    <string name="mealCardAddToPlannerText">Add to Planner</string>
 </resources>
