@@ -10,4 +10,14 @@
         android:name="com.example.mealscript.Home.HomePage"
         android:label="fragment_home_page"
         tools:layout="@layout/fragment_home_page" />
+    <fragment
+        android:id="@+id/searchPage"
+        android:name="com.example.mealscript.Home.SearchPage"
+        android:label="fragment_search_page"
+        tools:layout="@layout/fragment_search_page" />
+    <fragment
+        android:id="@+id/calenderPage"
+        android:name="com.example.mealscript.Home.CalenderPage"
+        android:label="fragment_calender_page"
+        tools:layout="@layout/fragment_calender_page" />
 </navigation>

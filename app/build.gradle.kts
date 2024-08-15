@@ -58,6 +58,7 @@ dependencies {
     // When using the BoM, you don't specify versions in Firebase library dependencies
     implementation("com.google.firebase:firebase-auth")
     implementation("com.squareup.retrofit2:adapter-rxjava3:2.11.0")
+    implementation("de.hdodenhof:circleimageview:3.1.0")
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
 }

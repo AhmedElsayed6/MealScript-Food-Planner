@@ -46,12 +46,12 @@ public class HorizontalRecyclerViewAdapter extends RecyclerView.Adapter<Horizont
     }
 
     @Override
-    // 0
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         CardItem item = items.get(position);
         holder.textView.setText(item.getText());
         holder.imageView.setImageResource(item.getImageResId());
 
+  
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

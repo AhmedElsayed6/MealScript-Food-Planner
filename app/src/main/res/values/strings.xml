@@ -22,5 +22,6 @@
     <string name="mealCardAddToPlannerText">Add to Planner</string>
     <string name="Empty">"    "</string>
     <string name="DailyInsperation">Daily Inspirations</string>
-    <string name="SavedMeals">Saved Meals</string>
+    <string name="SavedMeals">Favorite meals</string>
+    <string name="Desserts">Desserts Heaven</string>
 </resources>

@@ -21,12 +21,20 @@ import com.yuyakaido.android.cardstackview.StackFrom;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+import java.util.concurrent.TimeUnit;
+
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.disposables.CompositeDisposable;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class ParentRecyclerViewAdapter extends RecyclerView.Adapter<ParentRecyclerViewAdapter.ViewHolder>  {
     private RecyclerView.RecycledViewPool viewPool = new RecyclerView.RecycledViewPool();
     CardStackLayoutManager  manager = null ;
     RecyclerView rv ;
-    HorizontalRecyclerViewAdapter ra;
+    private CompositeDisposable disposable = new CompositeDisposable();
+
     public ParentRecyclerViewAdapter(List<CardItem> items , HomePage page ) {
         this.items = items;
         this.page = page;
@@ -44,7 +52,7 @@ public class ParentRecyclerViewAdapter extends RecyclerView.Adapter<ParentRecycl
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
     CardItem item  = items.get(position);
 
-        manager = new CardStackLayoutManager(holder.csv.getContext(), new CardStackListener() {
+        manager = new CardStackLayoutManager(holder.cardStackViewHomeScreen.getContext(), new CardStackListener() {
             @Override
             public void onCardDragging(Direction direction, float ratio) {
 
@@ -90,35 +98,60 @@ public class ParentRecyclerViewAdapter extends RecyclerView.Adapter<ParentRecycl
         RewindAnimationSetting setting = new RewindAnimationSetting.Builder().setDirection(Direction.Right).setDuration(Duration.Normal.duration).setInterpolator(new DecelerateInterpolator()).build();
         manager.setRewindAnimationSetting(setting);
         manager.setVisibleCount(4);
-        CardStackAdapter adapter = new CardStackAdapter(items , holder.csv );
-        holder.csv.setLayoutManager(manager);
-        holder.csv.setAdapter(adapter);
-        LinearLayoutManager llm = new LinearLayoutManager(holder.rv.getContext());
-        llm.setOrientation(LinearLayoutManager.HORIZONTAL);
-        holder.rv.setLayoutManager(llm);
-        ra = new HorizontalRecyclerViewAdapter(items);
-        holder.rv.setAdapter(ra);
+        CardStackAdapter adapter = new CardStackAdapter(items , holder.cardStackViewHomeScreen);
+        holder.cardStackViewHomeScreen.setLayoutManager(manager);
+        holder.cardStackViewHomeScreen.setAdapter(adapter);
 
-   //     holder.csv.setRecycledViewPool(viewPool);
 
+        LinearLayoutManager llmForInspirationMeals = new LinearLayoutManager(holder.recyclerViewHomeScreenSavedMeals.getContext());
+        llmForInspirationMeals.setOrientation(LinearLayoutManager.HORIZONTAL);
+        holder.recyclerViewHomeScreenSavedMeals.setLayoutManager(llmForInspirationMeals);
+
+        LinearLayoutManager llmForDesserts = new LinearLayoutManager(holder.recyclerViewHomeScreenSavedDesserts.getContext());
+        llmForDesserts.setOrientation(LinearLayoutManager.HORIZONTAL);
+        holder.recyclerViewHomeScreenSavedDesserts.setLayoutManager(llmForDesserts);
+
+        HorizontalRecyclerViewAdapter  horizontalAdapterForSavedMeals = new HorizontalRecyclerViewAdapter(items);
+        HorizontalRecyclerViewAdapter  horizontalAdapterForDesserts = new HorizontalRecyclerViewAdapter(items);
+        holder.recyclerViewHomeScreenSavedMeals.setAdapter(horizontalAdapterForSavedMeals);
+        holder.recyclerViewHomeScreenSavedDesserts.setAdapter(horizontalAdapterForDesserts);
+        autoScroll(llmForDesserts,holder.recyclerViewHomeScreenSavedMeals);
+        autoScroll(llmForDesserts,holder.recyclerViewHomeScreenSavedDesserts);
 
 
     }
+
+    private void autoScroll(LinearLayoutManager llm , RecyclerView rv ){
+        int randomInt = new Random().nextInt(4) + 1;
+        Observable.interval(randomInt, TimeUnit.SECONDS).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(aLong -> {
+                    int currentPosition = llm.findFirstVisibleItemPosition();
+                    int totalItemCount = rv.getAdapter().getItemCount();
+
+                    if (currentPosition < totalItemCount - 1) {
+                        rv.smoothScrollToPosition(currentPosition + 1);
+                    } else {
+                        rv.smoothScrollToPosition(0); // Loop back to the start
+                    }
+                });
+    }
+
 
     @Override
     public int getItemCount() {
         return  1;
     }
-
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView textView;
-        CardStackView csv;
-        RecyclerView rv ;
+        TextView txtDailyInspHomeScreen;
+        CardStackView cardStackViewHomeScreen;
+        RecyclerView recyclerViewHomeScreenSavedMeals , recyclerViewHomeScreenSavedDesserts ;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-             textView = itemView.findViewById(R.id.txtDailyInspHomeScreen);
-             csv = itemView.findViewById(R.id.cardStackViewHomeScreen);
-            rv = itemView.findViewById(R.id.recyclerViewHomeScreen);
+             txtDailyInspHomeScreen = itemView.findViewById(R.id.txtDailyInspHomeScreen);
+             cardStackViewHomeScreen = itemView.findViewById(R.id.cardStackViewHomeScreen);
+             recyclerViewHomeScreenSavedMeals = itemView.findViewById(R.id.recyclerViewHomeScreenSavedMeals);
+             recyclerViewHomeScreenSavedDesserts = itemView.findViewById(R.id.recyclerViewHomeScreenSavedDesserts);
         }
     }
 }

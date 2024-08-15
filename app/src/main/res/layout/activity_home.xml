@@ -2,13 +2,12 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Home.HomeActivity">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardd"
+        android:id="@+id/cardToolbarLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:elevation="2dp"
@@ -26,8 +25,30 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:navigationIcon="@drawable/arrowback"
-            app:title=" " />
+            app:title=" ">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/btnProfileImageInHomeScreen"
+                android:layout_width="60dp"
+                android:layout_height="50dp"
+                android:layout_gravity="start"
+                android:src="@drawable/cake1"
+                app:civ_border_color="#FFFFFF"
+                app:civ_border_width="2dp" />
+
+            <include
+                android:id="@+id/btnGoToFavHomeScreen"
+                layout="@layout/toolbar_fav_card_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginEnd="20dp"
+                android:clickable="true"
+                android:focusable="true"
+                />
+
+
+        </androidx.appcompat.widget.Toolbar>
 
     </androidx.cardview.widget.CardView>
 
@@ -37,16 +58,16 @@
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:fitsSystemWindows="true"
         app:defaultNavHost="true"
-        app:layout_constraintBottom_toTopOf="@+id/cardView"
+        app:layout_constraintBottom_toTopOf="@+id/cardNavViewLogin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cardd"
-        android:fitsSystemWindows="true"
+        app:layout_constraintTop_toBottomOf="@id/cardToolbarLogin"
         app:navGraph="@navigation/nav_graph_home" />
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardView"
+        android:id="@+id/cardNavViewLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:elevation="2dp"
@@ -60,6 +81,7 @@
             android:layout_height="wrap_content"
             android:background="#00FFFFFF"
             app:itemIconSize="35dp"
+            app:labelVisibilityMode="auto"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -67,7 +89,6 @@
 
 
     </androidx.cardview.widget.CardView>
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
