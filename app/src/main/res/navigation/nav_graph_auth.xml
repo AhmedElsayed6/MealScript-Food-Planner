@@ -9,7 +9,14 @@
         android:id="@+id/welcomePage"
         android:name="com.example.mealscript.Auth.Views.WelcomePage"
         android:label="fragment_welcome_page"
-        tools:layout="@layout/fragment_welcome_page" />
+        tools:layout="@layout/fragment_welcome_page" >
+        <action
+            android:id="@+id/action_welcomePage_to_loginPage"
+            app:destination="@id/loginPage" />
+        <action
+            android:id="@+id/action_welcomePage_to_signupPage"
+            app:destination="@id/signupPage" />
+    </fragment>
     <fragment
         android:id="@+id/loginPage"
         android:name="com.example.mealscript.Auth.Views.LoginPage"
@@ -17,7 +24,7 @@
         tools:layout="@layout/fragment_login_page" />
     <fragment
         android:id="@+id/signupPage"
-        android:name="com.example.mealscript.Auth.Views.signupPage"
+        android:name="com.example.mealscript.Auth.Views.SignupPage"
         android:label="fragment_signup_page"
         tools:layout="@layout/fragment_signup_page" />
 </navigation>

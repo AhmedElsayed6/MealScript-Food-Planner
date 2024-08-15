@@ -23,7 +23,7 @@
             <ImageView
                 android:id="@+id/imageViewCardMeal"
                 android:layout_width="0dp"
-                android:layout_height="220dp"
+                android:layout_height="260dp"
                 android:scaleType="centerCrop"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

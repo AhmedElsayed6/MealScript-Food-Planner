@@ -77,7 +77,7 @@
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/textViewLoginbtn"
             style="@style/myText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -96,7 +96,7 @@
         android:backgroundTint="#77181D18"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/play" />
+        app:srcCompat="@drawable/pause" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

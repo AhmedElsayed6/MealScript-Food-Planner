@@ -14,12 +14,12 @@
         android:background="@color/md_theme_background"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
+        app:elevation="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:navigationIcon="@drawable/arrowback"
-        app:elevation="10dp"
-        app:title=" " />
+        app:title="Hello" />
 
     <TextView
         android:id="@+id/textView4"

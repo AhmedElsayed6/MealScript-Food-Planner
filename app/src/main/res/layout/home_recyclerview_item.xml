@@ -1,32 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-android:orientation="vertical"
-android:layout_width="match_parent"
-android:layout_height="wrap_content">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-
-    <LinearLayout
+    <TextView
+        android:id="@+id/txtDailyInspHomeScreen"
+        style="@style/myText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="12dp"
-        android:orientation="vertical">
-        <TextView
-            android:id="@+id/textView111"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="12sp"
-            android:textSize="18sp"
-            android:text="Item Title"/>
+        android:fontFamily="@font/roboto_medium_italic"
+        android:text="@string/DailyInsperation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <com.yuyakaido.android.cardstackview.CardStackView
-            android:id="@+id/card1"
-            android:layout_width="match_parent"
-            android:layout_height="400dp"
-            android:layout_marginBottom="731dp"
-            android:clipToPadding="false"
-            android:padding="16dp"
-            android:visibility="visible" />
-    </LinearLayout>
+    <com.yuyakaido.android.cardstackview.CardStackView
+        android:id="@+id/cardStackViewHomeScreen"
+        android:layout_width="match_parent"
+        android:layout_height="420dp"
+        android:clipToPadding="false"
+        android:padding="16dp"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtDailyInspHomeScreen">
 
-</LinearLayout>
+    </com.yuyakaido.android.cardstackview.CardStackView>
+
+    <TextView
+        android:id="@+id/textView6"
+        style="@style/myText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="@string/SavedMeals"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.429"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardStackViewHomeScreen" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewHomeScreen"
+        android:layout_width="match_parent"
+        android:layout_height="900dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="0dp"
+        android:layout_height="400dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/recyclerViewHomeScreen" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

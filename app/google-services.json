@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "869115723941",
+    "project_id": "mealscript",
+    "storage_bucket": "mealscript.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:869115723941:android:5542967d3f3ed8d5df8d4c",
+        "android_client_info": {
+          "package_name": "com.example.mealscript"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "869115723941-tvhrsnb1chrqibcub1gahunvrvejru3r.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.mealscript",
+            "certificate_hash": "34a9c1d18604845f3a7cf0bd3fb4d7d7c6477a10"
+          }
+        },
+        {
+          "client_id": "869115723941-2umq087cjgp4at45d6mqmkp0nmmpjtch.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBchy3M98-T2gQr7u9BcYGsNQqlJp1p42c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "869115723941-2umq087cjgp4at45d6mqmkp0nmmpjtch.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -20,4 +20,7 @@
     <string name="signupScreenConfirmPasswordText">Confirm Password</string>
     <string name="signupScreenSignupButtonText">Signup</string>
     <string name="mealCardAddToPlannerText">Add to Planner</string>
+    <string name="Empty">"    "</string>
+    <string name="DailyInsperation">Daily Inspirations</string>
+    <string name="SavedMeals">Saved Meals</string>
 </resources>

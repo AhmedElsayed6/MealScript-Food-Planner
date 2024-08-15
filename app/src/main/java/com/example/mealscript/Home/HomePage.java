@@ -1,29 +1,20 @@
 package com.example.mealscript.Home;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.DecelerateInterpolator;
-import android.view.animation.Interpolator;
 import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.ConcatAdapter;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mealscript.R;
 import com.yuyakaido.android.cardstackview.CardStackLayoutManager;
-import com.yuyakaido.android.cardstackview.CardStackListener;
 import com.yuyakaido.android.cardstackview.CardStackView;
-import com.yuyakaido.android.cardstackview.Direction;
-import com.yuyakaido.android.cardstackview.Duration;
-import com.yuyakaido.android.cardstackview.RewindAnimationSetting;
-import com.yuyakaido.android.cardstackview.StackFrom;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,7 +61,7 @@ public class HomePage extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        RecyclerViewAdapter adapter1 = new RecyclerViewAdapter(items,this);
+        ParentRecyclerViewAdapter adapter1 = new ParentRecyclerViewAdapter(items,this);
         rvv.setAdapter(adapter1);
     }
 }

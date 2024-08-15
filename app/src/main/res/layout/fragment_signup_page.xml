@@ -5,7 +5,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto"
 xmlns:tools="http://schemas.android.com/tools"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
-tools:context=".Auth.Views.signupPage" >
+tools:context=".Auth.Views.SignupPage" >
 
 
     <com.google.android.material.textfield.TextInputEditText
@@ -17,12 +17,13 @@ tools:context=".Auth.Views.signupPage" >
         android:hint="@string/signupScreenConfirmPasswordText"
         android:inputType="text|textPassword"
         android:textStyle="bold"
+        android:maxLength="15"
         app:layout_constraintEnd_toEndOf="@+id/textInputSignupPassword"
         app:layout_constraintStart_toStartOf="@+id/textInputSignupPassword"
         app:layout_constraintTop_toBottomOf="@+id/textInputSignupPassword" />
 
     <androidx.appcompat.widget.Toolbar
-    android:id="@+id/toolbarLogin1"
+    android:id="@+id/toolbarSignup"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/md_theme_background"
@@ -46,7 +47,7 @@ tools:context=".Auth.Views.signupPage" >
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbarLogin1" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbarSignup" />
 
     <TextView
         android:id="@+id/textView51"
@@ -68,6 +69,7 @@ tools:context=".Auth.Views.signupPage" >
         android:fontFamily="@font/roboto_medium_italic"
         android:hint="@string/signupScreenDisplayNameText"
         android:textStyle="bold"
+        android:maxLength="15"
         app:layout_constraintEnd_toEndOf="@+id/textView51"
         app:layout_constraintStart_toStartOf="@+id/textView51"
         app:layout_constraintTop_toBottomOf="@+id/textView51" />
@@ -80,7 +82,6 @@ tools:context=".Auth.Views.signupPage" >
         android:layout_marginTop="30dp"
         android:fontFamily="@font/roboto_medium_italic"
         android:hint="@string/signupScreenEmailText"
-        android:inputType="text|textPassword"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/textInputSignupDisplayName"
         app:layout_constraintStart_toStartOf="@+id/textInputSignupDisplayName"
@@ -91,6 +92,7 @@ tools:context=".Auth.Views.signupPage" >
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
+        android:maxLength="15"
         android:fontFamily="@font/roboto_medium_italic"
         android:hint="@string/signupScreenPasswordText"
         android:inputType="text|textPassword"
