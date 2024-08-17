@@ -1,5 +1,7 @@
 package com.example.mealscript.Auth.Presenters;
 
+import android.content.Intent;
+
 import com.example.mealscript.Auth.Model.AuthManager;
 import com.example.mealscript.Auth.Views.WelcomePageInterface;
 public class WelcomePresenter implements AuthPresenter {
@@ -11,6 +13,7 @@ public class WelcomePresenter implements AuthPresenter {
 
     private WelcomePresenter(WelcomePageInterface view) {
         this.view = view;
+
     }
 
     public static WelcomePresenter getInstance(WelcomePageInterface view) {
@@ -20,15 +23,16 @@ public class WelcomePresenter implements AuthPresenter {
     }
 
 
-    public void SignInUpWithGoogle() {
+    public void SignInUpWithGoogle(Intent data ) {
         authManager = AuthManager.getInstance(this);
-        authManager.SignInUpWithGoogle();
+        authManager.SignInUpWithGoogle(data);
     }
+
 
 
     @Override
     public void onSuccess() {
-
+        view.onGoogleSuccess();
     }
 
     @Override

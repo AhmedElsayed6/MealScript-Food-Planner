@@ -1,4 +1,4 @@
-package com.example.mealscript.Home;
+package com.example.mealscript.Home.Views;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +14,6 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mealscript.R;
-import com.yuyakaido.android.cardstackview.CardStackLayoutManager;
 import com.yuyakaido.android.cardstackview.CardStackView;
 
 import java.util.List;

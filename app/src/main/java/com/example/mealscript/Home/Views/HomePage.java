@@ -1,4 +1,4 @@
-package com.example.mealscript.Home;
+package com.example.mealscript.Home.Views;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.mealscript.Network.MealRemoteDataSource;
 import com.example.mealscript.R;
 import com.yuyakaido.android.cardstackview.CardStackLayoutManager;
 import com.yuyakaido.android.cardstackview.CardStackView;
@@ -39,16 +40,17 @@ public class HomePage extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         return inflater.inflate(R.layout.fragment_home_page, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        MealRemoteDataSource mrds = MealRemoteDataSource.getInstance();
+        mrds.getRandomMeals();
         parentRecyclerView = view.findViewById(R.id.parentRecyclerView);
         parentRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
         items = new ArrayList<>();
         items.add(new CardItem("Chocoloate cakeeeeee cakeeeeeecakeeeeeecakeeeeeecakeeeeeecakeeeeeecakeeeeee", R.drawable.cake1, "Action 1", R.drawable.fillheart));
         items.add(new CardItem("Card 2", R.drawable.cake2, "Action 2", R.drawable.fillheart));

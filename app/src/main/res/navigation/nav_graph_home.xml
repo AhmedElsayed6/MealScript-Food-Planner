@@ -7,17 +7,17 @@
 
     <fragment
         android:id="@+id/homePage"
-        android:name="com.example.mealscript.Home.HomePage"
+        android:name="com.example.mealscript.Home.Views.HomePage"
         android:label="fragment_home_page"
         tools:layout="@layout/fragment_home_page" />
     <fragment
         android:id="@+id/searchPage"
-        android:name="com.example.mealscript.Home.SearchPage"
+        android:name="com.example.mealscript.Home.Views.SearchPage"
         android:label="fragment_search_page"
         tools:layout="@layout/fragment_search_page" />
     <fragment
         android:id="@+id/calenderPage"
-        android:name="com.example.mealscript.Home.CalenderPage"
+        android:name="com.example.mealscript.Home.Views.CalenderPage"
         android:label="fragment_calender_page"
         tools:layout="@layout/fragment_calender_page" />
 </navigation>

@@ -55,7 +55,7 @@ public class LoginPresenter implements AuthPresenter {
 
     @Override
     public void onSuccess() {
-
+        view.onLoginSuccess();
     }
 
     @Override

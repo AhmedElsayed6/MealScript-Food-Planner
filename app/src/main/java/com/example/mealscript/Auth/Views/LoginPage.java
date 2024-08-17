@@ -1,10 +1,10 @@
 package com.example.mealscript.Auth.Views;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
@@ -13,13 +13,13 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.mealscript.Auth.Presenters.LoginPresenter;
+import com.example.mealscript.Home.Views.HomeActivity;
 import com.example.mealscript.R;
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -85,5 +85,16 @@ public class LoginPage extends Fragment implements LoginPageInterface {
     @Override
     public void showPasswordTextError() {
         textInputLoginPassword.setError("Password can't be empty or less than 6 characters");
+    }
+
+    @Override
+    public void onLoginSuccess() {
+        Intent toHome = new Intent(getActivity(), HomeActivity.class);
+        startActivity(toHome);
+    }
+
+    @Override
+    public void onLoginFail() {
+
     }
 }

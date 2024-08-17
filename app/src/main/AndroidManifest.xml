@@ -14,7 +14,7 @@
         android:theme="@style/AppTheme"
         tools:targetApi="31">
         <activity
-            android:name=".Home.HomeActivity"
+            android:name=".SplashActivity"
             android:exported="false"
             android:launchMode="singleTop"
             />
@@ -23,7 +23,7 @@
             android:name=".Auth.Views.AuthActivity"
             android:exported="false" />
         <activity
-            android:name=".SplashActivity"
+            android:name=".Home.Views.HomeActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,5 +1,6 @@
 package com.example.mealscript.Auth.Views;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.mealscript.Auth.Presenters.SignupPresenter;
+import com.example.mealscript.Home.Views.HomeActivity;
 import com.example.mealscript.R;
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -88,6 +90,17 @@ public class SignupPage extends Fragment implements SignupPageInterface {
     @Override
     public void showConfirmPasswordTextError() {
         textInputSignupPasswordConfirm.setError("Passwords don't match");
+    }
+
+    @Override
+    public void onSignupSuccess() {
+        Intent toHome = new Intent(getActivity(), HomeActivity.class);
+        startActivity(toHome);
+    }
+
+    @Override
+    public void onSignupFail() {
+
     }
 
 

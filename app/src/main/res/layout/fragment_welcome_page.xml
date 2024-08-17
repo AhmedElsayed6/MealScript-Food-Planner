@@ -77,7 +77,7 @@
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/textViewLoginbtn"
+            android:id="@+id/textViewWelcomeLoginbtn"
             style="@style/myText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -97,6 +97,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/pause" />
+
+    <TextView
+        android:id="@+id/textViewWelcomeSkipBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="28dp"
+        android:text="@string/Skip"
+        android:textColor="#F8F4F4"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

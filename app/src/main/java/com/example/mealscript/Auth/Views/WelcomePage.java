@@ -1,11 +1,12 @@
 package com.example.mealscript.Auth.Views;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,27 +20,22 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import com.example.mealscript.Auth.Presenters.WelcomePresenter;
+import com.example.mealscript.Home.Views.HomeActivity;
 import com.example.mealscript.R;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.firebase.auth.AuthCredential;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.GoogleAuthProvider;
 
-public class WelcomePage extends Fragment implements  WelcomePageInterface {
+public class WelcomePage extends Fragment implements WelcomePageInterface {
     private static final String TAG = "GOOGLESUCKS";
-    VideoView videoViewWelcome;
-    TextView textViewLoginbtn;
-    Button btnWelcomeSignupEmail, btnWelcomeGoogle;
-    ImageButton btnWelcomePause;
-    WelcomePresenter presenter;
+    private VideoView videoViewWelcome;
+    private TextView textViewWelcomeLoginbtn, textViewWelcomeSkipBtn;
+    private Button btnWelcomeSignupEmail, btnWelcomeGoogle;
+    private ImageButton btnWelcomePause;
+    private WelcomePresenter presenter;
     private GoogleSignInClient googleSignInClient;
     private ActivityResultLauncher<Intent> signInLauncher;
 
@@ -56,11 +52,10 @@ public class WelcomePage extends Fragment implements  WelcomePageInterface {
                 new ActivityResultContracts.StartActivityForResult(),
                 result -> {
                     if (result.getResultCode() == Activity.RESULT_OK) {
-                        Log.i(TAG, "onCreate: Done ");
                         Intent data = result.getData();
-                        handleSignInResult(data);
+                        presenter.SignInUpWithGoogle(data);
                     } else {
-                        Log.e(TAG, "Sign-in result failed with result code: " + result.getResultCode());
+
                     }
                 }
         );
@@ -69,7 +64,6 @@ public class WelcomePage extends Fragment implements  WelcomePageInterface {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_welcome_page, container, false);
     }
 
@@ -78,75 +72,43 @@ public class WelcomePage extends Fragment implements  WelcomePageInterface {
         super.onViewCreated(view, savedInstanceState);
         presenter = WelcomePresenter.getInstance(this);
         videoViewWelcome = view.findViewById(R.id.videoViewWelcome);
-        textViewLoginbtn = view.findViewById(R.id.textViewLoginbtn);
+        textViewWelcomeLoginbtn = view.findViewById(R.id.textViewWelcomeLoginbtn);
         btnWelcomeSignupEmail = view.findViewById(R.id.btnWelcomeSignupEmail);
         btnWelcomeGoogle = view.findViewById(R.id.btnWelcomeGoogle);
         btnWelcomePause = view.findViewById(R.id.btnWelcomePause);
+        textViewWelcomeSkipBtn = view.findViewById(R.id.textViewWelcomeSkipBtn);
         StartVideo(view);
 
 
-        btnWelcomePause.setOnClickListener((e)->{
-            if(videoViewWelcome.isPlaying()){
+        btnWelcomePause.setOnClickListener((e) -> {
+            if (videoViewWelcome.isPlaying()) {
                 videoViewWelcome.pause();
                 btnWelcomePause.setImageResource(R.drawable.play);
-            }
-            else{
+            } else {
                 videoViewWelcome.start();
                 btnWelcomePause.setImageResource(R.drawable.pause);
             }
         });
 
-        textViewLoginbtn.setOnClickListener((e)->{
-        Navigation.findNavController(view).navigate(R.id.action_welcomePage_to_loginPage);
+        textViewWelcomeLoginbtn.setOnClickListener((e) -> {
+            Navigation.findNavController(view).navigate(R.id.action_welcomePage_to_loginPage);
         });
 
 
-        btnWelcomeSignupEmail.setOnClickListener((e)->{
+        btnWelcomeSignupEmail.setOnClickListener((e) -> {
             Navigation.findNavController(view).navigate(R.id.action_welcomePage_to_signupPage);
         });
 
-        btnWelcomeGoogle.setOnClickListener((e)->{
-          // presenter.SignInUpWithGoogle();
+        btnWelcomeGoogle.setOnClickListener((e) -> {
             googleSignInClient.signOut().addOnCompleteListener(task -> {
                 Intent signInIntent = googleSignInClient.getSignInIntent();
                 signInLauncher.launch(signInIntent);
             });
         });
-        
-        
-    }
-    private void handleSignInResult(Intent data) {
-        GoogleSignIn.getSignedInAccountFromIntent(data)
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        // Get the GoogleSignInAccount from the task result
-                        GoogleSignInAccount account = task.getResult();
-                        if (account != null) {
-                            // Get the ID token from the GoogleSignInAccount
-                            String idToken = account.getIdToken();
 
-                            // Authenticate with Firebase using the ID token
-                            AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
-                            FirebaseAuth.getInstance().signInWithCredential(credential)
-                                    .addOnCompleteListener(authTask -> {
-                                        if (authTask.isSuccessful()) {
-                                            // Sign-in successful, handle the Firebase user
-                                            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                                            Log.i(TAG, "handleSignInResult: Firebase sign-in successful");
-                                            // Proceed with your logic
-                                        } else {
-                                            // Sign-in failed, handle the error
-                                            Log.e(TAG, "handleSignInResult: Firebase sign-in failed", authTask.getException());
-                                        }
-                                    });
-                        } else {
-                            Log.e(TAG, "handleSignInResult: GoogleSignInAccount is null");
-                        }
-                    } else {
-                        // Handle sign-in failure
-                        Log.e(TAG, "handleSignInResult: Google sign-in failed", task.getException());
-                    }
-                });
+        textViewWelcomeSkipBtn.setOnClickListener((e) -> {
+            ShowGuestDialog();
+        });
     }
 
 
@@ -170,8 +132,8 @@ public class WelcomePage extends Fragment implements  WelcomePageInterface {
         videoViewWelcome.stopPlayback();
     }
 
-    private  void StartVideo(View view){
-        Uri video = Uri.parse("android.resource://" + view.getContext().getPackageName() + "/" + R.raw.welcomescreen); // Replace with your video file name
+    private void StartVideo(View view) {
+        Uri video = Uri.parse("android.resource://" + view.getContext().getPackageName() + "/" + R.raw.welcomescreen);
         videoViewWelcome.setVideoURI(video);
         videoViewWelcome.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override
@@ -183,9 +145,35 @@ public class WelcomePage extends Fragment implements  WelcomePageInterface {
     }
 
 
+    private void ShowGuestDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this.getContext());
+        builder.setTitle("Wait Are you Sure?");
+        builder.setMessage("You'll miss out on personalized content and saving our meals recipes");
+        builder.setPositiveButton("YES,I'M SURE", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                Intent toHome = new Intent(getActivity(), HomeActivity.class);
+                startActivity(toHome);
+            }
+        });
+        builder.setNegativeButton("NO,GO BACK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
     @Override
-    public void showGoogleLoginError() {
-
+    public void onGoogleFail() {
+    //?
     }
 
+    @Override
+    public void onGoogleSuccess() {
+        Intent toHome = new Intent(getActivity(), HomeActivity.class);
+        startActivity(toHome);
+    }
 }

@@ -1,4 +1,4 @@
-package com.example.mealscript.Home;
+package com.example.mealscript.Home.Views;
 
 import android.os.Bundle;
 

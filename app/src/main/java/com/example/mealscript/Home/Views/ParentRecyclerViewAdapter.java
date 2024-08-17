@@ -1,4 +1,4 @@
-package com.example.mealscript.Home;
+package com.example.mealscript.Home.Views;
 
 import android.view.LayoutInflater;
 import android.view.View;

@@ -72,7 +72,7 @@ public class SignupPresenter implements AuthPresenter {
 
     @Override
     public void onSuccess() {
-
+        view.onSignupSuccess();
     }
 
     @Override
