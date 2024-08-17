@@ -25,7 +25,7 @@ public class HomePage extends Fragment {
     CardStackAdapter adapter;
     CardStackLayoutManager manager;
     Button rewind;
-    RecyclerView rvv;
+    RecyclerView parentRecyclerView;
 
     List<CardItem> items;
     private String TAG = "CardViewSucccks";
@@ -46,10 +46,10 @@ public class HomePage extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        rvv = view.findViewById(R.id.rvv);
-        rvv.setLayoutManager(new LinearLayoutManager(getContext()));
+        parentRecyclerView = view.findViewById(R.id.parentRecyclerView);
+        parentRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-         items = new ArrayList<>();
+        items = new ArrayList<>();
         items.add(new CardItem("Chocoloate cakeeeeee cakeeeeeecakeeeeeecakeeeeeecakeeeeeecakeeeeeecakeeeeee", R.drawable.cake1, "Action 1", R.drawable.fillheart));
         items.add(new CardItem("Card 2", R.drawable.cake2, "Action 2", R.drawable.fillheart));
         items.add(new CardItem("Card 2", R.drawable.cake2, "Action 2", R.drawable.fillheart));
@@ -62,6 +62,6 @@ public class HomePage extends Fragment {
     public void onResume() {
         super.onResume();
         ParentRecyclerViewAdapter adapter1 = new ParentRecyclerViewAdapter(items,this);
-        rvv.setAdapter(adapter1);
+        parentRecyclerView.setAdapter(adapter1);
     }
 }

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.mealscript.Auth.Views.AuthActivity;
 import java.util.concurrent.TimeUnit;
@@ -23,7 +24,7 @@ public static String TAG ="OBONE";
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        Observable.timer(2, TimeUnit.SECONDS).subscribeOn(Schedulers.io())
+        Observable.timer(1, TimeUnit.SECONDS).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(aLong -> navigateToNextScreen());
 
@@ -65,5 +66,10 @@ public static String TAG ="OBONE";
         Intent intent = new Intent(this, AuthActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

@@ -3,6 +3,7 @@ package com.example.mealscript.Auth.Model;
 import android.util.Log;
 
 import com.example.mealscript.Auth.Presenters.AuthPresenter;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -62,7 +63,10 @@ public class AuthManager {
                 });
     }
     public void SignInUpWithGoogle(){
-        Log.i(TAG, "SignInUpWithGoogle: ");
+
+
+
+
     }
     public void SignOut(){
         mAuth.signOut();

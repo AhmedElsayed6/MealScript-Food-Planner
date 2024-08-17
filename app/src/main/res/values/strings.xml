@@ -24,4 +24,6 @@
     <string name="DailyInsperation">Daily Inspirations</string>
     <string name="SavedMeals">Favorite meals</string>
     <string name="Desserts">Desserts Heaven</string>
+    <string name="MoreYouMightLike">More You Might Like</string>
+    <string name="Add">Add</string>
 </resources>

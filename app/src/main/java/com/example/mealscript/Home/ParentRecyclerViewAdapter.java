@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.example.mealscript.R;
 import com.yuyakaido.android.cardstackview.CardStackLayoutManager;
@@ -111,10 +112,16 @@ public class ParentRecyclerViewAdapter extends RecyclerView.Adapter<ParentRecycl
         llmForDesserts.setOrientation(LinearLayoutManager.HORIZONTAL);
         holder.recyclerViewHomeScreenSavedDesserts.setLayoutManager(llmForDesserts);
 
-        HorizontalRecyclerViewAdapter  horizontalAdapterForSavedMeals = new HorizontalRecyclerViewAdapter(items);
-        HorizontalRecyclerViewAdapter  horizontalAdapterForDesserts = new HorizontalRecyclerViewAdapter(items);
+        StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        holder.recyclerViewHomeScreenMYML.setLayoutManager(staggeredGridLayoutManager);
+
+        ChildHorizontalRecyclerViewAdapter horizontalAdapterForSavedMeals = new ChildHorizontalRecyclerViewAdapter(items);
+        ChildHorizontalRecyclerViewAdapter horizontalAdapterForDesserts = new ChildHorizontalRecyclerViewAdapter(items);
+        ChildVerticalReyclerViewAdapter horizontalRecyclerForMYML = new ChildVerticalReyclerViewAdapter(items);
+
         holder.recyclerViewHomeScreenSavedMeals.setAdapter(horizontalAdapterForSavedMeals);
         holder.recyclerViewHomeScreenSavedDesserts.setAdapter(horizontalAdapterForDesserts);
+        holder.recyclerViewHomeScreenMYML.setAdapter(horizontalRecyclerForMYML);
         autoScroll(llmForDesserts,holder.recyclerViewHomeScreenSavedMeals);
         autoScroll(llmForDesserts,holder.recyclerViewHomeScreenSavedDesserts);
 
@@ -145,13 +152,14 @@ public class ParentRecyclerViewAdapter extends RecyclerView.Adapter<ParentRecycl
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView txtDailyInspHomeScreen;
         CardStackView cardStackViewHomeScreen;
-        RecyclerView recyclerViewHomeScreenSavedMeals , recyclerViewHomeScreenSavedDesserts ;
+        RecyclerView recyclerViewHomeScreenSavedMeals , recyclerViewHomeScreenSavedDesserts , recyclerViewHomeScreenMYML ;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
              txtDailyInspHomeScreen = itemView.findViewById(R.id.txtDailyInspHomeScreen);
              cardStackViewHomeScreen = itemView.findViewById(R.id.cardStackViewHomeScreen);
              recyclerViewHomeScreenSavedMeals = itemView.findViewById(R.id.recyclerViewHomeScreenSavedMeals);
              recyclerViewHomeScreenSavedDesserts = itemView.findViewById(R.id.recyclerViewHomeScreenSavedDesserts);
+            recyclerViewHomeScreenMYML= itemView.findViewById(R.id.recyclerViewHomeScreenMYML);
         }
     }
 }
