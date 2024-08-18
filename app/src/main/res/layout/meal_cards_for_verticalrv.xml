@@ -72,14 +72,13 @@
 
             <Button
                 android:id="@+id/btnCardViewAddToPlannerVZ"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="142dp"
+                android:layout_height="88dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="14dp"
                 android:fontFamily="@font/roboto_medium_italic"
-                android:paddingStart="40dp"
-                android:paddingEnd="40dp"
-                android:text="@string/Add"
+                android:text="@string/mealCardAddToPlannerText"
+                android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

@@ -38,16 +38,16 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:text="@string/SavedMeals"
+        android:text="@string/Categories"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.429"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardStackViewHomeScreen" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewHomeScreenSavedMeals"
+        android:id="@+id/recyclerViewHomeScreenCategories"
         android:layout_width="match_parent"
-        android:layout_height="350dp"
+        android:layout_height="180dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -62,7 +62,7 @@
         android:text="@string/Desserts"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerViewHomeScreenSavedMeals" />
+        app:layout_constraintTop_toBottomOf="@+id/recyclerViewHomeScreenCountries" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewHomeScreenSavedDesserts"
@@ -91,5 +91,23 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView7" />
+
+    <TextView
+        android:id="@+id/textView12"
+        style="@style/myText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="@string/Countries"
+        app:layout_constraintStart_toStartOf="@+id/textView6"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerViewHomeScreenCategories" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewHomeScreenCountries"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView12" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,5 +1,6 @@
 package com.example.mealscript.Home.Views;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,10 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.example.mealscript.Model.ContainerMealLists;
+import com.example.mealscript.Model.Meal;
 import com.example.mealscript.R;
 
 import java.util.List;
@@ -19,9 +24,9 @@ import java.util.List;
 public class ChildVerticalReyclerViewAdapter extends RecyclerView.Adapter<ChildVerticalReyclerViewAdapter.ViewHolder> {
 
 
-    private List<CardItem> items;
-
-    public ChildVerticalReyclerViewAdapter(List<CardItem> items ) {
+    private List<Meal> items;
+    private Context context;
+    public ChildVerticalReyclerViewAdapter(List<Meal> items ) {
         this.items = items;
 
     }
@@ -29,7 +34,7 @@ public class ChildVerticalReyclerViewAdapter extends RecyclerView.Adapter<ChildV
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup recycler, int viewType) {
-
+        context = recycler.getContext();
         LayoutInflater inflater = LayoutInflater.from(recycler.getContext());
         View row = inflater.inflate(R.layout.meal_cards_for_verticalrv, recycler, false);
         return new ViewHolder(row);
@@ -42,9 +47,11 @@ public class ChildVerticalReyclerViewAdapter extends RecyclerView.Adapter<ChildV
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        CardItem item = items.get(position);
-        holder.textView.setText(item.getText());
-        holder.imageView.setImageResource(item.getImageResId());
+        Meal item = items.get(position);
+        holder.textView.setText(item.getStrMeal());
+        Glide.with(context).load(item.getStrMealThumb()).apply(new RequestOptions()
+                .placeholder(R.drawable.ic_launcher_background)
+                .error(R.drawable.ic_launcher_foreground)).into(holder.imageView);
 
 
     }

@@ -12,7 +12,7 @@
         tools:layout="@layout/fragment_home_page" />
     <fragment
         android:id="@+id/searchPage"
-        android:name="com.example.mealscript.Home.Views.SearchPage"
+        android:name="com.example.mealscript.Search.Views.SearchPage"
         android:label="fragment_search_page"
         tools:layout="@layout/fragment_search_page" />
     <fragment

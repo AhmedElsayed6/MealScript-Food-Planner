@@ -27,4 +27,10 @@
     <string name="MoreYouMightLike">More You Might Like</string>
     <string name="Add">Add</string>
     <string name="Skip"><u>Skip</u></string>
+    <string name="CountryOfOrigin">Country Of Origin: </string>
+    <string name="Ingredients">Ingredients:</string>
+    <string name="Instructions">"Instructions: "</string>
+    <string name="YoutubeVideo">Youtube Video:</string>
+    <string name="Categories">Categories</string>
+    <string name="Countries">Countries</string>
 </resources>

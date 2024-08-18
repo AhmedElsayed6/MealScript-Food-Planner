@@ -59,7 +59,6 @@ dependencies {
     implementation("com.google.firebase:firebase-auth")
     implementation("com.squareup.retrofit2:adapter-rxjava3:2.11.0")
     implementation("de.hdodenhof:circleimageview:3.1.0")
-
     implementation ("com.squareup.retrofit2:retrofit:2.11.0")
     implementation ("com.squareup.retrofit2:converter-gson:2.11.0")
     //Gson

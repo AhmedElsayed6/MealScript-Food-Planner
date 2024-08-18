@@ -1,6 +1,6 @@
 package com.example.mealscript.Repo;
 
-import com.example.mealscript.Home.Presenters.NetworkDelegate;
+import com.example.mealscript.Network.NetworkDelegate;
 import com.example.mealscript.Network.MealRemoteDataSource;
 
 public class Repo {
@@ -20,8 +20,15 @@ public class Repo {
     }
 
 
-    public void getRandomMeals(NetworkDelegate delegate){
-        remoteDataSource.getMealsByName(delegate , "s");
+    public void getDailyInspirations(NetworkDelegate delegate , String randomLetter ){
+        remoteDataSource.getMealsByName(delegate , randomLetter);
+    }
+    public void getCategories(NetworkDelegate delegate ){
+        remoteDataSource.getCategories(delegate);
+    }
+    public void getArea(NetworkDelegate delegate ){
+        remoteDataSource.getAreas(delegate);
+
     }
 
 

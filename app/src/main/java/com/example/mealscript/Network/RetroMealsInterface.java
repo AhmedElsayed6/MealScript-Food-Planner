@@ -1,5 +1,6 @@
 package com.example.mealscript.Network;
 
+import com.example.mealscript.Model.Categories;
 import com.example.mealscript.Model.Meals;
 
 import io.reactivex.rxjava3.core.Observable;
@@ -18,6 +19,13 @@ public interface RetroMealsInterface {
 
     @GET("lookup.php")
     Observable<Meals> getMealById(@Query("i") String mealId);
+    @GET("categories.php")
+    Observable<Categories> getCategories();
+
+    @GET("list.php?a=list")
+    Observable<Meals> getAreas();
+
+
 
 
 }

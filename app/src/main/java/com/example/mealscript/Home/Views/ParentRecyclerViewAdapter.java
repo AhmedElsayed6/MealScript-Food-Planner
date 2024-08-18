@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import com.example.mealscript.Model.ContainerMealLists;
+import com.example.mealscript.Model.Meal;
 import com.example.mealscript.R;
 import com.yuyakaido.android.cardstackview.CardStackLayoutManager;
 import com.yuyakaido.android.cardstackview.CardStackListener;
@@ -22,38 +24,37 @@ import com.yuyakaido.android.cardstackview.StackFrom;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Observable;
-import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class ParentRecyclerViewAdapter extends RecyclerView.Adapter<ParentRecyclerViewAdapter.ViewHolder>  {
-    private RecyclerView.RecycledViewPool viewPool = new RecyclerView.RecycledViewPool();
-    CardStackLayoutManager  manager = null ;
-    RecyclerView rv ;
-    private CompositeDisposable disposable = new CompositeDisposable();
 
-    public ParentRecyclerViewAdapter(List<CardItem> items , HomePage page ) {
-        this.items = items;
+    CardStackLayoutManager lmForCardStackView = null ;
+    HomePage page ;
+    CardStackAdapter cardStackAdapter;
+    private ContainerMealLists containerMealLists;
+
+    public ParentRecyclerViewAdapter(ContainerMealLists containerMealLists , HomePage page ) {
+        this.containerMealLists = containerMealLists;
         this.page = page;
     }
-    HomePage page ;
-    private List<CardItem> items;
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.home_recyclerview_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.parent_home_recyclerview_item, parent, false);
         return new ParentRecyclerViewAdapter.ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-    CardItem item  = items.get(position);
+    List<Meal> getDailyInspirationsList  =containerMealLists.getDailyInspirationsList();
 
-        manager = new CardStackLayoutManager(holder.cardStackViewHomeScreen.getContext(), new CardStackListener() {
+
+        lmForCardStackView = new CardStackLayoutManager(holder.cardStackViewHomeScreen.getContext(), new CardStackListener() {
             @Override
             public void onCardDragging(Direction direction, float ratio) {
 
@@ -68,9 +69,9 @@ public class ParentRecyclerViewAdapter extends RecyclerView.Adapter<ParentRecycl
 
             @Override
             public void onCardRewound() {
-                int position = manager.getTopPosition();
-                if(items.size()-1 != position)
-                    manager.setCanScrollHorizontal(true);
+                int position = lmForCardStackView.getTopPosition();
+                if(getDailyInspirationsList.size()-1 != position)
+                    lmForCardStackView.setCanScrollHorizontal(true);
             }
 
             @Override
@@ -80,8 +81,8 @@ public class ParentRecyclerViewAdapter extends RecyclerView.Adapter<ParentRecycl
 
             @Override
             public void onCardAppeared(View view, int position) {
-                if(items.size()-1 == position)
-                    manager.setCanScrollHorizontal(false);
+                if(getDailyInspirationsList.size()-1 == position)
+                    lmForCardStackView.setCanScrollHorizontal(false);
             }
 
             @Override
@@ -89,58 +90,70 @@ public class ParentRecyclerViewAdapter extends RecyclerView.Adapter<ParentRecycl
 
             }
         });
-        manager.setStackFrom(StackFrom.Left);
-        manager.setTranslationInterval(16.0f);
-        manager.setScaleInterval(0.90f);
-        manager.setCanScrollVertical(false);
+        lmForCardStackView.setStackFrom(StackFrom.Left);
+        lmForCardStackView.setTranslationInterval(16.0f);
+        lmForCardStackView.setScaleInterval(0.90f);
+        lmForCardStackView.setCanScrollVertical(false);
         List<Direction> directions = new ArrayList<>();
         directions.add(Direction.Right);
-        manager.setDirections(directions);
+        lmForCardStackView.setDirections(directions);
         RewindAnimationSetting setting = new RewindAnimationSetting.Builder().setDirection(Direction.Right).setDuration(Duration.Normal.duration).setInterpolator(new DecelerateInterpolator()).build();
-        manager.setRewindAnimationSetting(setting);
-        manager.setVisibleCount(4);
-        CardStackAdapter adapter = new CardStackAdapter(items , holder.cardStackViewHomeScreen);
-        holder.cardStackViewHomeScreen.setLayoutManager(manager);
-        holder.cardStackViewHomeScreen.setAdapter(adapter);
+        lmForCardStackView.setRewindAnimationSetting(setting);
+        lmForCardStackView.setVisibleCount(4);
+        cardStackAdapter = new CardStackAdapter(getDailyInspirationsList , holder.cardStackViewHomeScreen);
+        holder.cardStackViewHomeScreen.setLayoutManager(lmForCardStackView);
+        holder.cardStackViewHomeScreen.setAdapter(cardStackAdapter);
 
-
-        LinearLayoutManager llmForInspirationMeals = new LinearLayoutManager(holder.recyclerViewHomeScreenSavedMeals.getContext());
-        llmForInspirationMeals.setOrientation(LinearLayoutManager.HORIZONTAL);
-        holder.recyclerViewHomeScreenSavedMeals.setLayoutManager(llmForInspirationMeals);
-
+        //Categories
+        LinearLayoutManager llmForCategories = new LinearLayoutManager(holder.recyclerViewHomeScreenCategories.getContext());
+        llmForCategories.setOrientation(LinearLayoutManager.HORIZONTAL);
+        holder.recyclerViewHomeScreenCategories.setLayoutManager(llmForCategories);
+        // Countries
+      LinearLayoutManager llmForCountries = new LinearLayoutManager(holder.recyclerViewHomeScreenCountries.getContext());
+        llmForCountries.setOrientation(LinearLayoutManager.HORIZONTAL);
+        holder.recyclerViewHomeScreenCountries.setLayoutManager(llmForCountries);
+        //Desserts
         LinearLayoutManager llmForDesserts = new LinearLayoutManager(holder.recyclerViewHomeScreenSavedDesserts.getContext());
         llmForDesserts.setOrientation(LinearLayoutManager.HORIZONTAL);
         holder.recyclerViewHomeScreenSavedDesserts.setLayoutManager(llmForDesserts);
+        // More you might like
+        StaggeredGridLayoutManager staggeredGridLayoutManagerForMoreYouMightLike = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        holder.recyclerViewHomeScreenMYML.setLayoutManager(staggeredGridLayoutManagerForMoreYouMightLike);
 
-        StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-        holder.recyclerViewHomeScreenMYML.setLayoutManager(staggeredGridLayoutManager);
 
-        ChildHorizontalRecyclerViewAdapter horizontalAdapterForSavedMeals = new ChildHorizontalRecyclerViewAdapter(items);
-        ChildHorizontalRecyclerViewAdapter horizontalAdapterForDesserts = new ChildHorizontalRecyclerViewAdapter(items);
-        ChildVerticalReyclerViewAdapter horizontalRecyclerForMYML = new ChildVerticalReyclerViewAdapter(items);
 
-        holder.recyclerViewHomeScreenSavedMeals.setAdapter(horizontalAdapterForSavedMeals);
+        CategoriesHorizontalAdapter horizontalAdapterForCategories = new CategoriesHorizontalAdapter(containerMealLists.getCategoryList());
+        CountriesHorizontalAdapter horizontalAdapterForCountries = new CountriesHorizontalAdapter(containerMealLists.getAreasList());
+        ChildHorizontalRecyclerViewAdapter horizontalAdapterForDesserts = new ChildHorizontalRecyclerViewAdapter(getDailyInspirationsList);
+        ChildVerticalReyclerViewAdapter horizontalRecyclerForMYML = new ChildVerticalReyclerViewAdapter(getDailyInspirationsList);
+
+        holder.recyclerViewHomeScreenCategories.setAdapter(horizontalAdapterForCategories);
         holder.recyclerViewHomeScreenSavedDesserts.setAdapter(horizontalAdapterForDesserts);
         holder.recyclerViewHomeScreenMYML.setAdapter(horizontalRecyclerForMYML);
-        autoScroll(llmForDesserts,holder.recyclerViewHomeScreenSavedMeals);
-        autoScroll(llmForDesserts,holder.recyclerViewHomeScreenSavedDesserts);
+        holder.recyclerViewHomeScreenCountries.setAdapter(horizontalAdapterForCountries);
+        //    autoScroll(llmForCategories,holder.recyclerViewHomeScreenCategories);
+        //    autoScroll(llmForDesserts,holder.recyclerViewHomeScreenSavedDesserts);
 
 
     }
 
-    private void autoScroll(LinearLayoutManager llm , RecyclerView rv ){
-        int randomInt = new Random().nextInt(4) + 1;
-        Observable.interval(randomInt, TimeUnit.SECONDS).subscribeOn(Schedulers.io())
+    private void autoScroll(LinearLayoutManager llm, RecyclerView rv) {
+        final int totalItemCount = llm.getItemCount();
+
+        Observable.interval(2, 5, TimeUnit.SECONDS) // Start after 2 seconds, scroll every 5 seconds
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(aLong -> {
                     int currentPosition = llm.findFirstVisibleItemPosition();
-                    int totalItemCount = rv.getAdapter().getItemCount();
+                    int nextPosition = currentPosition + 2; // Move forward by two items
 
-                    if (currentPosition < totalItemCount - 1) {
-                        rv.smoothScrollToPosition(currentPosition + 1);
-                    } else {
-                        rv.smoothScrollToPosition(0); // Loop back to the start
+                    if (nextPosition >= totalItemCount) {
+                        nextPosition = 0; // Loop back to the start if at the end
                     }
+
+                    rv.smoothScrollToPosition(nextPosition);
+                }, throwable -> {
+                    // Handle any potential errors
                 });
     }
 
@@ -152,14 +165,25 @@ public class ParentRecyclerViewAdapter extends RecyclerView.Adapter<ParentRecycl
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView txtDailyInspHomeScreen;
         CardStackView cardStackViewHomeScreen;
-        RecyclerView recyclerViewHomeScreenSavedMeals , recyclerViewHomeScreenSavedDesserts , recyclerViewHomeScreenMYML ;
+        RecyclerView recyclerViewHomeScreenCategories
+                , recyclerViewHomeScreenSavedDesserts , recyclerViewHomeScreenMYML ,
+                recyclerViewHomeScreenCountries;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
              txtDailyInspHomeScreen = itemView.findViewById(R.id.txtDailyInspHomeScreen);
              cardStackViewHomeScreen = itemView.findViewById(R.id.cardStackViewHomeScreen);
-             recyclerViewHomeScreenSavedMeals = itemView.findViewById(R.id.recyclerViewHomeScreenSavedMeals);
+            recyclerViewHomeScreenCategories = itemView.findViewById(R.id.recyclerViewHomeScreenCategories);
              recyclerViewHomeScreenSavedDesserts = itemView.findViewById(R.id.recyclerViewHomeScreenSavedDesserts);
             recyclerViewHomeScreenMYML= itemView.findViewById(R.id.recyclerViewHomeScreenMYML);
+            recyclerViewHomeScreenCountries= itemView.findViewById(R.id.recyclerViewHomeScreenCountries);
         }
+    }
+
+
+    public void setItems(ContainerMealLists container){
+        containerMealLists = container;
+        //cardStackAdapter.setItems(container.getDailyInspirationsList());
+
+       notifyDataSetChanged();
     }
 }

@@ -2,8 +2,12 @@ package com.example.mealscript.Network;
 
 import android.util.Log;
 
-import com.example.mealscript.Home.Presenters.NetworkDelegate;
+import com.example.mealscript.Model.Categories;
+import com.example.mealscript.Model.Category;
+import com.example.mealscript.Model.Meal;
 import com.example.mealscript.Model.Meals;
+
+import java.util.List;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.annotations.NonNull;
@@ -64,18 +68,18 @@ public class MealRemoteDataSource {
         mealObservable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(observer);
 
     }
-    public void getMealsByName(NetworkDelegate delegate , String mealName) {
-        Observable mealObservable =  rpi.getMealsByName(mealName);
+
+    public void getMealsByName(NetworkDelegate delegate, String mealName) {
+        Observable mealObservable = rpi.getMealsByName(mealName);
         Observer<Meals> observer = new Observer<Meals>() {
             @Override
             public void onSubscribe(@NonNull Disposable d) {
             }
+
             @Override
             public void onNext(@NonNull Meals meals) {
-
-                    delegate.getMeals(meals.getMealsList());
-
-
+                Log.i("Network", "onNext: u succck");
+                delegate.returnMeals(meals.getMealsList());
 
 
             }
@@ -91,6 +95,24 @@ public class MealRemoteDataSource {
 
         mealObservable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(observer);
 
+    }
+
+    public void getCategories(NetworkDelegate delegate) {
+        Observable categoriesObserver = rpi.getCategories();
+        categoriesObserver.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(categories -> {
+                    List<Category> categoriesList = ((Categories) categories).getCategories();
+                    delegate.returnCategories(categoriesList);
+                });
+    }
+
+    public void getAreas(NetworkDelegate delegate) {
+        Observable categoriesObserver = rpi.getAreas();
+        categoriesObserver.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(meals -> {
+                    List<Meal> areaList = ((Meals) meals).getMealsList();
+                    delegate.returnAreas(areaList);
+                });
     }
 
 }

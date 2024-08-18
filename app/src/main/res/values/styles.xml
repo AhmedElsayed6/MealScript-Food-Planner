@@ -17,6 +17,13 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+
+    <style name="textForMealDetailsA">
+        <item name="android:textSize">20sp</item>
+        <item name="android:letterSpacing">0.05</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="AppTheme.NoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="windowNoTitle">true</item>
     </style>
