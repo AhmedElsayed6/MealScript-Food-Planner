@@ -13,6 +13,11 @@ public interface RetroMealsInterface {
 
     @GET("search.php")
     Observable<Meals> getMealsByName(@Query("s") String mealName);
+    @GET("search.php")
+    Observable<Meals> searchMealByName(@Query("s") String mealName);
+    @GET("filter.php")
+    Observable<Meals> filterByCategories(@Query("c") String categoryName);
+
 
     @GET("search.php")
     Observable<Meals> getMealsByFirstLetter(@Query("f") String firstLetter);
@@ -23,7 +28,18 @@ public interface RetroMealsInterface {
     Observable<Categories> getCategories();
 
     @GET("list.php?a=list")
-    Observable<Meals> getAreas();
+    Observable<Meals> getAreasList();
+    @GET("list.php?i=list")
+    Observable<Meals> getIngredients();
+    @GET("list.php?c=list")
+    Observable<Meals> getCategoriesList();
+
+
+
+
+
+
+
 
 
 

@@ -1,6 +1,5 @@
 package com.example.mealscript.Network;
 
-import com.example.mealscript.Model.Categories;
 import com.example.mealscript.Model.Category;
 import com.example.mealscript.Model.Meal;
 

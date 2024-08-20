@@ -49,7 +49,7 @@ public class HomePage extends Fragment implements  HomePageInterface {
         super.onResume();
         presenter.getData();
         containerMealLists = new ContainerMealLists();
-         parentRecyclerAdapter = new ParentRecyclerViewAdapter(containerMealLists,this);
+        parentRecyclerAdapter = new ParentRecyclerViewAdapter(containerMealLists,this);
         parentRecyclerView.setAdapter(parentRecyclerAdapter);
     }
 

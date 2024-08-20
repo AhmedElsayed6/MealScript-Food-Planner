@@ -1,17 +1,37 @@
 package com.example.mealscript.Search.Views;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
+import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.mealscript.Model.Meal;
 import com.example.mealscript.R;
+import com.example.mealscript.Search.Presenter.SearchPagePresenter;
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipGroup;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
-public class SearchPage extends Fragment {
+public class SearchPage extends Fragment implements SearchPageInterface {
+    ChipGroup chipGroupSearchCat;
+    RecyclerView recyclerViewSearch;
+    EditText searchView;
+    SearchPagePresenter presenter;
+    SearchRecyclerViewAdapter searchRecyclerViewAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -25,5 +45,36 @@ public class SearchPage extends Fragment {
         return inflater.inflate(R.layout.fragment_search_page, container, false);
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        presenter = new SearchPagePresenter(this);
+        chipGroupSearchCat = view.findViewById(R.id.chipGroupSearchCat);
+        recyclerViewSearch = view.findViewById(R.id.recyclerViewSearch);
+        searchView = view.findViewById(R.id.searchView);
+        recyclerViewSearch.setLayoutManager(new LinearLayoutManager(getContext()));
+        searchRecyclerViewAdapter = new SearchRecyclerViewAdapter(new ArrayList<Meal>());
+        recyclerViewSearch.setAdapter(searchRecyclerViewAdapter);
+        searchView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    String enteredText = searchView.getText().toString();
+                    Chip selectedChip = view.findViewById(chipGroupSearchCat.getCheckedChipId());
+                    String selectedText = selectedChip != null ? selectedChip.getText().toString() : "";
+                    presenter.search(enteredText, selectedText);
+                    return true;
+                }
+                return false;
+            }
+        });
 
+
+    }
+
+
+    @Override
+    public void viewData(List<Meal> meals) {
+        searchRecyclerViewAdapter.setData(meals);
+    }
 }
