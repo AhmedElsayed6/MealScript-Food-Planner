@@ -16,11 +16,11 @@ import io.reactivex.rxjava3.core.Single;
 @Dao
 public interface FavMealDao {
 
-    @Query("SELECT * FROM fav_table")
-    Flowable<List<FavoriteMeal>> getAllFavoriteMeals();
+    @Query("SELECT * FROM fav_table Where userId = userid")
+    Flowable<List<FavoriteMeal>> getAllFavoriteMeals(String userid);
 
-    @Query("SELECT * FROM fav_table")
-    Single<List<FavoriteMeal>> getAllFavoriteMealsToSetIcons();
+    @Query("SELECT * FROM fav_table Where userId = userid")
+    Single<List<FavoriteMeal>> getAllFavoriteMealsToSetIcons(String userid);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     Completable insertFavoriteMeal(FavoriteMeal meal);

@@ -17,8 +17,8 @@ import io.reactivex.rxjava3.core.Single;
 @Dao
 public interface PlannerMealDao {
 
-    @Query("SELECT * FROM planner_table")
-    Flowable<List<PlannerMeal>> getAllPlannerMeals();
+    @Query("SELECT * FROM planner_table WHERE userId = userid")
+    Flowable<List<PlannerMeal>> getAllPlannerMeals(String userid);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     Completable insertPlannerMeal(PlannerMeal meal);

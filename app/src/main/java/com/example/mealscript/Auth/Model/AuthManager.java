@@ -23,7 +23,7 @@ public class AuthManager {
     private static String TAG ="AuthManager";
     private static  boolean isGuest = false;
     private static FirebaseAuth mAuth;
-    private static String currentUserId;
+    private  String currentUserId;
     public AuthManager() {
         mAuth = FirebaseAuth.getInstance();
         currentUserId = mAuth.getCurrentUser().getUid();
@@ -99,7 +99,7 @@ public class AuthManager {
     public static boolean isGuestMode(){
         return  isGuest;
     }
-    public static String getCurrentUserId(){
+    public  String getCurrentUserId(){
         return  currentUserId;
     }
     public void setGuestMode(boolean isGuest){

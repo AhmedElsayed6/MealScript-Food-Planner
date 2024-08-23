@@ -2,6 +2,7 @@ package com.example.mealscript.Local;
 
 import android.content.Context;
 
+import com.example.mealscript.Auth.Model.AuthManager;
 import com.example.mealscript.Model.FavoriteMeal;
 import com.example.mealscript.Model.PlannerMeal;
 
@@ -17,13 +18,14 @@ public class MealLocalDataSource {
     private Flowable<List<FavoriteMeal>> favMealList;
     private Flowable<List<PlannerMeal>> plannerMealList;
     private static MealLocalDataSource instance = null;
-
+    private AuthManager authManager;
     private MealLocalDataSource(Context context) {
         AppDataBase db = AppDataBase.getInstance(context.getApplicationContext());
+        authManager = new AuthManager();
         favMealDao = db.getFavMealDao();
         plannerMealDao = db.getPlannerMealDao();
-        favMealList = favMealDao.getAllFavoriteMeals();
-        plannerMealList = plannerMealDao.getAllPlannerMeals();
+        favMealList = favMealDao.getAllFavoriteMeals(authManager.getCurrentUserId());
+        plannerMealList = plannerMealDao.getAllPlannerMeals(authManager.getCurrentUserId());
     }
 
     public static MealLocalDataSource getInstance(Context context) {
@@ -38,7 +40,7 @@ public class MealLocalDataSource {
     }
 
     public Single<List<FavoriteMeal>> getFavoriteMealsListForIcons() {
-        return favMealDao.getAllFavoriteMealsToSetIcons();
+        return favMealDao.getAllFavoriteMealsToSetIcons(authManager.getCurrentUserId());
     }
 
 
