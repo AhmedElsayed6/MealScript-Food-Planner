@@ -45,7 +45,7 @@ public class CalenderRecyclerViewAdapter extends RecyclerView.Adapter<CalenderRe
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         PlannerMeal meal = plannerMealList.get(position);
         holder.getCardHolderCadViewPlanner().setOnClickListener((e) -> {
-           // view.navigateToFilterActivity(categoryList.get(position).getStrCategory() , "Category");
+             view.requestToGoToDetailsPage(meal.getIdMeal());
         });
         holder.getBtnCardRemoveFromPlanner().setOnClickListener((e) -> {
             view.deleteMeal(meal);

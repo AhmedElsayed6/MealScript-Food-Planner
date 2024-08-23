@@ -1,5 +1,6 @@
 package com.example.mealscript.Planner.View;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.mealscript.MealDetails.Views.MealDetailsActivity;
+import com.example.mealscript.Model.Meal;
 import com.example.mealscript.Model.PlannerMeal;
 import com.example.mealscript.Planner.Presenter.CalenderPagePresenter;
 import com.example.mealscript.R;
@@ -78,5 +81,20 @@ public class CalenderPage extends Fragment implements CalenderPageInterface {
     public void deleteMeal(PlannerMeal meal) {
         presenter.deleteMeal(meal);
     }
+
+    @Override
+    public void requestToGoToDetailsPage(String mealID) {
+        presenter.goToDetailsPage(mealID);
+
+    }
+
+    @Override
+    public void goToDetailsPage(Meal meal) {
+        Intent goToMealDetails = new Intent(this.getContext(), MealDetailsActivity.class);
+        meal.setFavorite(true);
+        goToMealDetails.putExtra("meal",meal);
+        startActivity(goToMealDetails);
+    }
+
 
 }

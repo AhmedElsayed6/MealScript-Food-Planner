@@ -11,6 +11,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.mealscript.Favorite.View.FavoriteActivity;
+import com.example.mealscript.Profile.View.ProfileActivity;
 import com.example.mealscript.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -37,8 +38,8 @@ public class HomeActivity extends AppCompatActivity {
         });
 
         btnProfileImageInHomeScreen.setOnClickListener((e)->{
-//            Intent goToFavorites = new Intent(this, FavoriteActivity.class);
-//            startActivity(goToFavorites);
+            Intent goToProfile = new Intent(this, ProfileActivity.class);
+            startActivity(goToProfile);
         });
     }
 }

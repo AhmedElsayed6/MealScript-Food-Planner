@@ -50,7 +50,7 @@ public class CalenderPagePresenter {
     public void goToDetailsPage(String mealID){
         repo.getMealById(mealID).subscribe(
                 meal -> {
-                   // view.goToDetailsPage(meal.getMealsList().get(0));
+                   view.goToDetailsPage(meal.getMealsList().get(0));
                 },
                 throwable -> {
 

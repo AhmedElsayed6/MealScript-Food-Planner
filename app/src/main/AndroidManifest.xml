@@ -15,6 +15,9 @@
         android:theme="@style/AppTheme"
         tools:targetApi="31">
         <activity
+            android:name=".Profile.View.ProfileActivity"
+            android:exported="false" />
+        <activity
             android:name=".Favorite.View.FavoriteActivity"
             android:exported="false" />
         <activity

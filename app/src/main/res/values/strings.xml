@@ -41,4 +41,7 @@
     <string name="Wednesday">Wednesday</string>
     <string name="Thursday">Thursday</string>
     <string name="Friday">Friday</string>
+    <string name="SignOut">SignOut</string>
+    <string name="Backup">Backup Meals</string>
+    <string name="Sync">Synchronize Meals</string>
 </resources>
