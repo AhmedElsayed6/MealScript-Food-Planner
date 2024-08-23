@@ -2,10 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@drawable/circular_background_forplanner"
-
     android:layout_width="300dp"
-    android:layout_height="wrap_content">
+
+    android:layout_height="wrap_content"
+    android:background="@drawable/circular_background_forplanner">
 
     <LinearLayout
         android:id="@+id/cardHolderInPlannerDialog"
@@ -44,17 +44,16 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:clipToOutline="true"
+        android:elevation="8dp"
         android:text="@string/textForPlannerDialog"
         android:textAlignment="inherit"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardHolderInPlannerDialog"
-        android:elevation="8dp"
-         android:clipToOutline="true"
 
 
-
-    />
+        app:layout_constraintTop_toBottomOf="@+id/cardHolderInPlannerDialog" />
 
 
     <com.google.android.material.chip.ChipGroup
@@ -62,7 +61,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="10dp"
 
         android:padding="10dp"
         app:chipSpacingHorizontal="10dp"

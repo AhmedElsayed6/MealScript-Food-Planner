@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.example.mealscript.Model.CuisineArea;
+import com.example.mealscript.Model.CuisineAreaEnum;
 import com.example.mealscript.Model.Meal;
 import com.example.mealscript.R;
 
@@ -56,7 +56,7 @@ public class CountriesHorizontalAdapter extends RecyclerView.Adapter<CountriesHo
         });
         if (country.compareToIgnoreCase("unknown") != 0) {
             holder.getTextViewCardCCname().setText(areasList.get(position).getStrArea());
-            Glide.with(context).load("https://flagsapi.com/" + CuisineArea.getCountryCodeByArea(areasList.get(position).getStrArea()) + "/shiny/64.png").apply(new RequestOptions()
+            Glide.with(context).load("https://flagsapi.com/" + CuisineAreaEnum.getCountryCodeByArea(areasList.get(position).getStrArea()) + "/shiny/64.png").apply(new RequestOptions()
                     .placeholder(R.drawable.ingradient)
                     .error(R.drawable.png_food_error)).into(holder.getImageViewCardCC());
         }

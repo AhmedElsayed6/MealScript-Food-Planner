@@ -3,11 +3,11 @@ package com.example.mealscript.MealDetails.Views;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -21,14 +21,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.mealscript.MealDetails.Presenter.MealDetailsActivityPresenter;
-import com.example.mealscript.Model.CuisineArea;
+import com.example.mealscript.Model.CuisineAreaEnum;
 import com.example.mealscript.Model.Meal;
+import com.example.mealscript.Planner.View.PlannerDialog;
 import com.example.mealscript.R;
-
-import java.util.concurrent.TimeUnit;
-
-import io.reactivex.rxjava3.core.Observable;
-import io.reactivex.rxjava3.core.Observer;
 
 public class MealDetailsActivity extends AppCompatActivity implements MealDetailsActivityInterface {
     LinearLayoutManager llmForIngredients;
@@ -38,6 +34,7 @@ public class MealDetailsActivity extends AppCompatActivity implements MealDetail
     MealDetailsActivityPresenter presenter;
     WebView webViewYoutubeVideo;
     CardView cardToolbarMealDetails;
+    Button btnAddToPlannerMealDetails;
     ScrollView scrollViewMeals;
     Toolbar toolBarMealDetails;
 
@@ -52,6 +49,7 @@ public class MealDetailsActivity extends AppCompatActivity implements MealDetail
         meal = (Meal) getIntent().getSerializableExtra("meal");
 
         imageViewMealDetailsMeal = findViewById(R.id.imageViewMealDetailsMeal);
+        btnAddToPlannerMealDetails = findViewById(R.id.btnAddToPlannerMealDetails);
         cardToolbarMealDetails = findViewById(R.id.cardToolbarMealDetails);
         btnCardViewMealDetailsAddToFav = findViewById(R.id.btnCardViewMealDetailsAddToFav);
         textViewMealDetailsTitle = findViewById(R.id.textViewMealDetailsTitle);
@@ -70,6 +68,9 @@ public class MealDetailsActivity extends AppCompatActivity implements MealDetail
         else{
 
         }
+        btnAddToPlannerMealDetails.setOnClickListener((e)->{
+            new PlannerDialog(this,meal.getIdMeal(),meal.getStrMeal(),meal.getStrMealThumb()).showDialog();
+        });
         webViewYoutubeVideo = findViewById(R.id.webViewYoutubeVideo);
         WebSettings webSettings = webViewYoutubeVideo.getSettings();
         webSettings.setJavaScriptEnabled(true);
@@ -138,7 +139,7 @@ public class MealDetailsActivity extends AppCompatActivity implements MealDetail
                 .placeholder(R.drawable.ingradient)
                 .error(R.drawable.ic_launcher_foreground)).into(imageViewMealDetailsMeal);
 
-        Glide.with(this).load("https://flagsapi.com/"+ CuisineArea.getCountryCodeByArea(meal.getStrArea())+"/shiny/64.png").apply(new RequestOptions()
+        Glide.with(this).load("https://flagsapi.com/"+ CuisineAreaEnum.getCountryCodeByArea(meal.getStrArea())+"/shiny/64.png").apply(new RequestOptions()
                 .placeholder(R.drawable.ingradient)
                 .error(R.drawable.ic_launcher_foreground)).into(imageViewMealsDetailsCountriesFlags);
 

@@ -1,6 +1,7 @@
 package com.example.mealscript.Home.Views;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,8 @@ import com.example.mealscript.Planner.View.PlannerDialog;
 import com.example.mealscript.R;
 
 import java.util.List;
+
+import retrofit2.http.POST;
 
 public class ChildVerticalReyclerViewAdapter extends RecyclerView.Adapter<ChildVerticalReyclerViewAdapter.ViewHolder> {
 

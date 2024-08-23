@@ -6,6 +6,5 @@ public class Categories {
     public List<Category> getCategories() {
         return categories;
     }
-
     private List<Category> categories;
 }

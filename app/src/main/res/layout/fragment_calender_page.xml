@@ -1,14 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".Planner.View.CalenderPage">
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:fillViewport="true">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-</FrameLayout>
+        <TextView
+            android:id="@+id/textView14"
+            style="@style/myText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/Saturday" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/satRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:orientation="horizontal"
+            tools:listitem="@layout/meal_cards_for_planner"
+            android:layout_margin="10dp" />
+
+        <TextView
+            android:id="@+id/textView15"
+            style="@style/myText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/Sunday" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/sunRecyclerView"
+            android:layout_width="match_parent"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp" />
+
+        <TextView
+            android:id="@+id/textView17"
+            style="@style/myText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/Monday" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/monRecyclerView"
+            android:layout_margin="10dp"
+            android:layout_width="match_parent"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/textView18"
+            style="@style/myText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/Tuesday" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/tuesRecyclerView"
+            android:layout_margin="10dp"
+            android:layout_width="match_parent"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:orientation="horizontal"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:id="@+id/textView19"
+            style="@style/myText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/Wednesday" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/wedRecyclerView"
+            android:layout_margin="10dp"
+            android:layout_width="match_parent"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:orientation="horizontal"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:id="@+id/textView21"
+            style="@style/myText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/Thursday" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/thurRecyclerView"
+            android:layout_margin="10dp"
+            android:layout_width="match_parent"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:orientation="horizontal"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:id="@+id/textView23"
+            style="@style/myText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/Friday" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/friRecyclerView"
+            android:layout_margin="10dp"
+            android:layout_width="match_parent"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:orientation="horizontal"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+    .
+
+</androidx.core.widget.NestedScrollView>

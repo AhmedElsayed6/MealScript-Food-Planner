@@ -10,6 +10,7 @@ import com.example.mealscript.Model.ContainerMealLists;
 import com.example.mealscript.Model.FavoriteMeal;
 import com.example.mealscript.Model.Meal;
 import com.example.mealscript.Model.Meals;
+import com.example.mealscript.Model.PlannerMeal;
 import com.example.mealscript.Network.MealRemoteDataSource;
 
 import java.util.ArrayList;
@@ -87,7 +88,7 @@ public class Repo {
     }
 
     public Completable deleteByUserIdAndIdMeal(String userId, String idMeal) {
-        return localDataSource.deleteByUserIdAndIdMeal(userId, idMeal);
+        return localDataSource.deleteByUserIdAndIdMealFromFav(userId, idMeal);
     }
 
     public Observable<ContainerMealLists> getHomePageData() {
@@ -194,6 +195,19 @@ public class Repo {
                     return meals;
                 }
         ).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+    }
+
+
+    public Completable insertPlannerMeal(PlannerMeal meal) {
+        return localDataSource.insertPlannerMeal(meal);
+    }
+
+    public Completable deleteByUserIdAndIdMealFromPlanner(String userId, String idMeal, int dayOfTheWeek) {
+        return localDataSource.deleteByUserIdAndIdMealFromPlanner(userId, idMeal, dayOfTheWeek);
+    }
+
+    public Flowable<List<PlannerMeal>> getPlannerMealsList() {
+        return localDataSource.getPlannerMealsList();
     }
 
 }

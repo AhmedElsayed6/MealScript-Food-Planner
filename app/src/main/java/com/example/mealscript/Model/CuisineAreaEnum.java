@@ -1,6 +1,6 @@
 package com.example.mealscript.Model;
 
-public enum CuisineArea {
+public enum CuisineAreaEnum {
     AMERICAN("US"),
     BRITISH("GB"),
     CANADIAN("CA"),
@@ -33,7 +33,7 @@ public enum CuisineArea {
 
     private final String countryCode;
 
-    CuisineArea(String countryCode) {
+    CuisineAreaEnum(String countryCode) {
         this.countryCode = countryCode;
     }
 
@@ -43,7 +43,7 @@ public enum CuisineArea {
 
     public static String getCountryCodeByArea(String area) {
         try {
-            return CuisineArea.valueOf(area.toUpperCase()).getCountryCode();
+            return CuisineAreaEnum.valueOf(area.toUpperCase()).getCountryCode();
         } catch (IllegalArgumentException e) {
             return "Unknown Area";
         }

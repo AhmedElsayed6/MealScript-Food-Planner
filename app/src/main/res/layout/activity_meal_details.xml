@@ -104,11 +104,10 @@
                 android:id="@+id/imageViewMealsDetailsCountriesFlags"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:layout_marginTop="12dp"
                 android:layout_marginEnd="20dp"
                 android:scaleType="center"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cardView"
+                app:layout_constraintTop_toBottomOf="@+id/btnAddToPlannerMealDetails"
                 app:srcCompat="@drawable/flag_gbpng" />
 
             <TextView
@@ -127,11 +126,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="20dp"
                 android:text="@string/CountryOfOrigin"
                 android:textAppearance="@style/textForMealDetailsA"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cardView" />
+                app:layout_constraintTop_toBottomOf="@+id/btnAddToPlannerMealDetails" />
 
             <TextView
                 android:id="@+id/textView8"
@@ -264,6 +263,16 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/cardViewInstructions" />
+
+            <Button
+                android:id="@+id/btnAddToPlannerMealDetails"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/mealCardAddToPlannerText"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cardView" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
