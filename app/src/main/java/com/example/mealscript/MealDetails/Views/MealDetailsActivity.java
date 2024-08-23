@@ -13,6 +13,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -32,12 +33,13 @@ import io.reactivex.rxjava3.core.Observer;
 public class MealDetailsActivity extends AppCompatActivity implements MealDetailsActivityInterface {
     LinearLayoutManager llmForIngredients;
     RecyclerView recyclerViewMealDetailsIngredients;
-    ImageView imageViewMealDetailsMeal, imageViewMealsDetailsCountriesFlags;
+    ImageView imageViewMealDetailsMeal, imageViewMealsDetailsCountriesFlags , btnCardViewMealDetailsAddToFav;
     TextView textViewMealDetailsTitle, textViewMealsDeatilsCountryName ,textViewMealDetailsInstructions;
     MealDetailsActivityPresenter presenter;
     WebView webViewYoutubeVideo;
     CardView cardToolbarMealDetails;
     ScrollView scrollViewMeals;
+    Toolbar toolBarMealDetails;
 
     private static final String TAG = "ALY";
     Meal meal;
@@ -45,17 +47,29 @@ public class MealDetailsActivity extends AppCompatActivity implements MealDetail
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.i(TAG , "onCreate: ALY AWAD");
-        presenter = new MealDetailsActivityPresenter(this);
+        presenter = new MealDetailsActivityPresenter(this,this);
         setContentView(R.layout.activity_meal_details);
         meal = (Meal) getIntent().getSerializableExtra("meal");
+
         imageViewMealDetailsMeal = findViewById(R.id.imageViewMealDetailsMeal);
-     cardToolbarMealDetails = findViewById(R.id.cardToolbarMealDetails);
+        cardToolbarMealDetails = findViewById(R.id.cardToolbarMealDetails);
+        btnCardViewMealDetailsAddToFav = findViewById(R.id.btnCardViewMealDetailsAddToFav);
         textViewMealDetailsTitle = findViewById(R.id.textViewMealDetailsTitle);
         scrollViewMeals = findViewById(R.id.scrollViewMeals);
         imageViewMealsDetailsCountriesFlags = findViewById(R.id.imageViewMealsDetailsCountriesFlags);
         textViewMealsDeatilsCountryName = findViewById(R.id.textViewMealsDeatilsCountryName);
         recyclerViewMealDetailsIngredients = findViewById(R.id.recyclerViewMealDetailsIngredient);
         textViewMealDetailsInstructions = findViewById(R.id.textViewMealDetailsInstructions);
+        toolBarMealDetails = findViewById(R.id.toolBarMealDetails);
+        setSupportActionBar(toolBarMealDetails);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+        toolBarMealDetails.setNavigationOnClickListener(v -> finish());
+        if(meal.isFavorite()){}
+        else{
+
+        }
         webViewYoutubeVideo = findViewById(R.id.webViewYoutubeVideo);
         WebSettings webSettings = webViewYoutubeVideo.getSettings();
         webSettings.setJavaScriptEnabled(true);
@@ -72,6 +86,7 @@ public class MealDetailsActivity extends AppCompatActivity implements MealDetail
                 adjustCardViewAlpha(scrollY);
             }
         });
+        setUpFavButton(meal);
 
     }
 
@@ -92,6 +107,29 @@ public class MealDetailsActivity extends AppCompatActivity implements MealDetail
         int alphaValue = (int) (255 * alphaRatio);  // 255 is the maximum value for alpha
         int backgroundColor = Color.argb(alphaValue, 255, 255, 255);  // Adjusts the alpha from 0 to 255
         cardToolbarMealDetails.setCardBackgroundColor(backgroundColor);
+    }
+    private void setUpFavButton(Meal meal){
+        if(meal.isFavorite())
+            btnCardViewMealDetailsAddToFav.setImageResource(R.drawable.fillheart);
+        else
+            btnCardViewMealDetailsAddToFav.setImageResource(R.drawable.outlineheartwhite);
+        btnCardViewMealDetailsAddToFav.setOnClickListener((e) -> {
+            if(meal.isFavorite()){
+                btnCardViewMealDetailsAddToFav.setImageResource(R.drawable.outlineheartwhite);
+               presenter.deleteMeal(meal);
+                meal.setFavorite(false);
+            }
+            else{
+               presenter.insertMeal(meal);
+                meal.setFavorite(true);
+                btnCardViewMealDetailsAddToFav.setImageResource(R.drawable.fillheart);
+            }
+
+        });
+
+    }
+
+    private void setOnClickListener(Object o) {
     }
 
     public void showMealDetails(Meal meal) {

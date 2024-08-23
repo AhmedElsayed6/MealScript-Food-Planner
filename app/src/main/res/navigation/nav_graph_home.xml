@@ -17,7 +17,7 @@
         tools:layout="@layout/fragment_search_page" />
     <fragment
         android:id="@+id/calenderPage"
-        android:name="com.example.mealscript.Home.Views.CalenderPage"
+        android:name="com.example.mealscript.Planner.View.CalenderPage"
         android:label="fragment_calender_page"
         tools:layout="@layout/fragment_calender_page" />
 </navigation>

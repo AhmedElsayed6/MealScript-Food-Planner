@@ -2,6 +2,7 @@ package com.example.mealscript.Home.Views;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,20 +18,23 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.mealscript.MealDetails.Views.MealDetailsActivity;
+import com.example.mealscript.Model.FavoriteMeal;
 import com.example.mealscript.Model.Meal;
+import com.example.mealscript.Planner.View.PlannerDialog;
 import com.example.mealscript.R;
 import com.yuyakaido.android.cardstackview.CardStackView;
 
 import java.util.List;
 
 public class CardStackAdapter extends RecyclerView.Adapter<CardStackAdapter.ViewHolder> {
-
+    private HomePageInterface view;
     private List<Meal> items;
-    CardStackView page;
+    private CardStackView page;
     private Context context;
 
-    public CardStackAdapter(List<Meal> items, CardStackView page) {
+    public CardStackAdapter(HomePageInterface view, List<Meal> items, CardStackView page) {
         this.items = items;
+        this.view= view;
         this.page = page;
     }
 
@@ -47,24 +51,34 @@ public class CardStackAdapter extends RecyclerView.Adapter<CardStackAdapter.View
         Meal item = items.get(position);
         holder.getTextViewCardMealName().setText(item.getStrMeal());
         Glide.with(context).load(item.getStrMealThumb()).apply(new RequestOptions()
-                .placeholder(R.drawable.ic_launcher_background)
-                .error(R.drawable.ic_launcher_foreground)).into(holder.getImageViewCardMeal());
+                .placeholder(R.drawable.png_food_placeholder)
+                .error(R.drawable.png_food_error)).into(holder.getImageViewCardMeal());
 
         holder.btnCardViewUndo.setOnClickListener((e) -> {
             page.rewind();
         });
         holder.cardHolderCadView.setOnClickListener((e) -> {
-            Intent goToMealDetails = new Intent(context, MealDetailsActivity.class);
-            goToMealDetails.putExtra("meal", item);
-            context.startActivity(goToMealDetails);
+            view.navigateToDetailsActivity(item);
         });
-        // You can set click listeners here
         holder.getBtnCardViewAddToPlanner().setOnClickListener(v -> {
-            // Handle button click
+            new PlannerDialog(context,item.getIdMeal(),item.getStrMeal(),item.getStrMealThumb()).showDialog();
         });
-
+        if(item.isFavorite())
+            holder.getBtnCardViewAddToFav().setImageResource(R.drawable.fillheart);
+        else
+            holder.getBtnCardViewAddToFav().setImageResource(R.drawable.outlineheart);
         holder.getBtnCardViewAddToFav().setOnClickListener(v -> {
-            // Handle image button click
+            if(item.isFavorite()){
+                holder.getBtnCardViewAddToFav().setImageResource(R.drawable.outlineheart);
+                view.removeFromFavorite(item);
+                item.setFavorite(false);
+            }
+            else{
+                view.addToFavorite(items.get(position));
+                items.get(position).setFavorite(true);
+                holder.getBtnCardViewAddToFav().setImageResource(R.drawable.fillheart);
+            }
+
         });
     }
 

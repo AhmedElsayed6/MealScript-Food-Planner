@@ -42,8 +42,8 @@ public class LoginPresenter implements AuthPresenter {
         }
 
         if (isValid) {
-            authManager = AuthManager.getInstance(this);
-            authManager.Login(email, password);
+            authManager = new AuthManager();
+            authManager.Login(email, password , this);
         }
 
     }

@@ -24,8 +24,8 @@ public class WelcomePresenter implements AuthPresenter {
 
 
     public void SignInUpWithGoogle(Intent data ) {
-        authManager = AuthManager.getInstance(this);
-        authManager.SignInUpWithGoogle(data);
+        authManager = new  AuthManager();
+        authManager.SignInUpWithGoogle(data,this);
     }
 
 

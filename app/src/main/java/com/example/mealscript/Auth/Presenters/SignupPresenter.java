@@ -53,8 +53,8 @@ public class SignupPresenter implements AuthPresenter {
         }
 
         if (isValid) {
-            authManager = AuthManager.getInstance(this);
-            authManager.Signup(email, password);
+            authManager = new AuthManager();
+            authManager.Signup(email, password,this);
         }
 
     }

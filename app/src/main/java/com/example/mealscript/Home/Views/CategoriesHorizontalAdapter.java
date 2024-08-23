@@ -19,13 +19,13 @@ import com.example.mealscript.R;
 import java.util.List;
 
 public class CategoriesHorizontalAdapter extends RecyclerView.Adapter<CategoriesHorizontalAdapter.ViewHolder> {
-
-
-    List<Category> categoryList;
+    private HomePageInterface view;
+    private List<Category> categoryList;
     private Context context;
 
-    public CategoriesHorizontalAdapter(List<Category> categoryList) {
+    public CategoriesHorizontalAdapter(HomePageInterface view, List<Category> categoryList) {
         this.categoryList = categoryList;
+        this.view = view;
     }
 
     @NonNull
@@ -46,10 +46,13 @@ public class CategoriesHorizontalAdapter extends RecyclerView.Adapter<Categories
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
+        holder.getCardHolderCadViewCC().setOnClickListener((e) -> {
+            view.navigateToFilterActivity(categoryList.get(position).getStrCategory() , "Category");
+        });
         holder.getTextViewCardCCname().setText(categoryList.get(position).getStrCategory());
         Glide.with(context).load(categoryList.get(position).getStrCategoryThumb()).apply(new RequestOptions()
-                .placeholder(R.drawable.ic_launcher_background)
-                .error(R.drawable.ic_launcher_foreground)).into(holder.getImageViewCardCC());
+                .placeholder(R.drawable.png_food_placeholder)
+                .error(R.drawable.png_food_error)).into(holder.getImageViewCardCC());
 
     }
 

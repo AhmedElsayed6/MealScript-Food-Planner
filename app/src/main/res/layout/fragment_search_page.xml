@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
     tools:context=".Search.Views.SearchPage">
 
     <EditText
@@ -11,36 +12,27 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:drawableEnd="@drawable/searchoutlined"
         android:background="@drawable/searchview_background"
-        android:singleLine="true"
-        app:circularflow_defaultRadius="1dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:drawableEnd="@drawable/searchoutlined"
+        android:singleLine="true" />
 
     <com.google.android.material.chip.ChipGroup
         android:id="@+id/chipGroupSearchCat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_marginTop="10dp"
-        android:gravity="center"
-        app:selectionRequired="true"
-        android:orientation="horizontal"
         app:chipSpacingHorizontal="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.50"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchView"
+        app:selectionRequired="true"
         app:singleSelection="true">
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chipMeal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Meal"
             android:checkable="true"
             android:checked="true"
+            android:text="Meal"
             app:checkedIconVisible="false"
             app:chipBackgroundColor="@color/chip_background"
             app:closeIconEnabled="false" />
@@ -49,9 +41,9 @@
             android:id="@+id/chipCountry"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Country"
             android:checkable="true"
-            android:checked="true"
+            android:checked="false"
+            android:text="Country"
             app:checkedIconVisible="false"
             app:chipBackgroundColor="@color/chip_background"
             app:closeIconEnabled="false" />
@@ -60,10 +52,10 @@
             android:id="@+id/chipIngredient"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:checkable="true"
+            android:checked="false"
             android:text="Ingredient"
             app:checkedIconVisible="false"
-            android:checkable="true"
-            android:checked="true"
             app:chipBackgroundColor="@color/chip_background"
             app:closeIconEnabled="false" />
 
@@ -71,9 +63,9 @@
             android:id="@+id/chipCategory"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Category"
             android:checkable="true"
-            android:checked="true"
+            android:checked="false"
+            android:text="Category"
             app:checkedIconVisible="false"
             app:chipBackgroundColor="@color/chip_background"
             app:closeIconEnabled="false" />
@@ -86,9 +78,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/chipGroupSearchCat" />
+        android:layout_marginEnd="10dp" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

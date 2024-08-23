@@ -21,21 +21,15 @@ import io.reactivex.rxjava3.annotations.NonNull;
 
 public class AuthManager {
     private static String TAG ="AuthManager";
-    private static AuthManager instance = null;
+    private static  boolean isGuest = false;
     private static FirebaseAuth mAuth;
-    private AuthPresenter presenter;
-    private AuthManager(AuthPresenter presenter) {
-        this.presenter = presenter;
-    }
-
-    public static AuthManager getInstance(AuthPresenter presenter) {
+    private static String currentUserId;
+    public AuthManager() {
         mAuth = FirebaseAuth.getInstance();
-        if (instance == null)
-            instance = new AuthManager(presenter);
-        return instance;
+        currentUserId = mAuth.getCurrentUser().getUid();
     }
 
-    public void Login(String email, String password){
+    public void Login(String email, String password, AuthPresenter presenter ){
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -53,7 +47,7 @@ public class AuthManager {
         });
 
     }
-    public void Signup(String email, String password){
+    public void Signup(String email, String password, AuthPresenter presenter ){
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
@@ -70,7 +64,7 @@ public class AuthManager {
                     }
                 });
     }
-    public void SignInUpWithGoogle(Intent data){
+    public void SignInUpWithGoogle(Intent data,AuthPresenter presenter) {
         GoogleSignIn.getSignedInAccountFromIntent(data)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
@@ -96,10 +90,19 @@ public class AuthManager {
                     }
                 });
     }
-    public void SignOut(){
+    public  void SignOut(){
         mAuth.signOut();
     }
-    public boolean isUserLoggedIn() {
+    public  boolean  isUserLoggedIn() {
         return mAuth.getCurrentUser() != null;
+    }
+    public static boolean isGuestMode(){
+        return  isGuest;
+    }
+    public static String getCurrentUserId(){
+        return  currentUserId;
+    }
+    public void setGuestMode(boolean isGuest){
+        this.isGuest=isGuest;
     }
 }
