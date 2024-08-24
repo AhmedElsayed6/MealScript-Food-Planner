@@ -17,7 +17,7 @@ import androidx.room.PrimaryKey;
     private int dayOfTheWeek;
     private String strMealThumb;
 
-
+    public PlannerMeal(){}
 
     public PlannerMeal(String userId, String strMeal, String idMeal, String strMealThumb, int dayOfTheWeek) {
         this.userId = userId;

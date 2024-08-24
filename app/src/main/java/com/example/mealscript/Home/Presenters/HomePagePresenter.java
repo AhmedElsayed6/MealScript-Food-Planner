@@ -1,6 +1,7 @@
 package com.example.mealscript.Home.Presenters;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.example.mealscript.Auth.Model.AuthManager;
 import com.example.mealscript.Home.Views.HomePageInterface;
@@ -23,29 +24,30 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class HomePagePresenter {
     private static HomePagePresenter instance = null;
-    private HomePageInterface view;
-    private Repo repo;
-    private ContainerMealLists items;
-
+    private static HomePageInterface view;
+    private static Repo repo;
 
     private HomePagePresenter(HomePageInterface view, Context context) {
         this.view = view;
-        this.repo = Repo.getInstance(context);
-        this.items = new ContainerMealLists();
+        HomePagePresenter.repo = Repo.getInstance(context);
     }
 
 
     public static HomePagePresenter getInstance(HomePageInterface view, Context context) {
         if (instance == null)
             instance = new HomePagePresenter(view, context);
+
+        HomePagePresenter.repo = Repo.getInstance(context);
+        HomePagePresenter.view = view;
         return instance;
     }
 
     public void getData() {
              repo.getHomePageData().subscribe(
-                        updatedItems -> view.setData(updatedItems),
+                        updatedItems -> {view.setData(updatedItems);
+                            Log.i("TAGHOMEPAGE", "onViewCreated: GOT to get Data" + updatedItems);},
                         error -> {
-
+                            Log.i("TAGHOMEPAGE", "GOT ERROR: Requested to get Data");
                         }
                 );
     }

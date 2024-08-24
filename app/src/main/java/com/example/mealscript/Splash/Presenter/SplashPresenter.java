@@ -3,7 +3,7 @@ package com.example.mealscript.Splash.Presenter;
 import com.example.mealscript.Auth.Model.AuthManager;
 import com.example.mealscript.Auth.Presenters.AuthPresenter;
 
-public class SplashPresenter implements AuthPresenter {
+public class SplashPresenter  {
     private AuthManager authManager;
     private static SplashPresenter instance = null;
 
@@ -21,13 +21,4 @@ public class SplashPresenter implements AuthPresenter {
         return authManager.isUserLoggedIn();
     }
 
-    @Override
-    public void onSuccess() {
-
-    }
-
-    @Override
-    public void onFail() {
-
-    }
 }

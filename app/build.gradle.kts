@@ -51,6 +51,7 @@ dependencies {
     implementation("androidx.recyclerview:recyclerview:1.2.1")
     implementation("io.reactivex.rxjava3:rxjava:3.1.6")
     implementation("io.reactivex.rxjava3:rxandroid:3.0.2")
+    implementation("com.google.firebase:firebase-firestore:24.7.0")
     implementation(platform("com.google.firebase:firebase-bom:33.1.2"))
     implementation("com.google.android.gms:play-services-auth:21.2.0")
     implementation("com.google.firebase:firebase-auth")

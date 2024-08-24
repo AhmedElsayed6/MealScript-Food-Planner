@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 
 public class LoginPresenter implements AuthPresenter {
 
-    private LoginPageInterface view;
+    private static LoginPageInterface view;
     private AuthManager authManager;
     private static LoginPresenter instance = null;
 
@@ -20,6 +20,7 @@ public class LoginPresenter implements AuthPresenter {
 
         if (instance == null)
             instance = new LoginPresenter(view);
+        LoginPresenter.view = view;
         return instance;
 
     }
@@ -55,6 +56,7 @@ public class LoginPresenter implements AuthPresenter {
 
     @Override
     public void onSuccess() {
+        authManager.setUpUserId();
         view.onLoginSuccess();
     }
 

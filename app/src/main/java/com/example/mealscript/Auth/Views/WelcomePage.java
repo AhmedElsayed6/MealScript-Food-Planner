@@ -30,7 +30,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 
 public class WelcomePage extends Fragment implements WelcomePageInterface {
-    private static final String TAG = "GOOGLESUCKS";
     private VideoView videoViewWelcome;
     private TextView textViewWelcomeLoginbtn, textViewWelcomeSkipBtn;
     private Button btnWelcomeSignupEmail, btnWelcomeGoogle;
@@ -153,6 +152,7 @@ public class WelcomePage extends Fragment implements WelcomePageInterface {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
+                presenter.setUpGuestMode();
                 Intent toHome = new Intent(getActivity(), HomeActivity.class);
                 startActivity(toHome);
             }

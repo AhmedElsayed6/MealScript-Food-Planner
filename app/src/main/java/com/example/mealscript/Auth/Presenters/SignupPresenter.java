@@ -2,6 +2,7 @@ package com.example.mealscript.Auth.Presenters;
 
 
 import com.example.mealscript.Auth.Model.AuthManager;
+import com.example.mealscript.Auth.Model.User;
 import com.example.mealscript.Auth.Views.SignupPageInterface;
 
 import java.util.regex.Pattern;
@@ -9,7 +10,7 @@ import java.util.regex.Pattern;
 public class SignupPresenter implements AuthPresenter {
     private AuthManager authManager;
 
-    private SignupPageInterface view;
+    private static SignupPageInterface view;
     private static SignupPresenter instance = null;
 
     private SignupPresenter(SignupPageInterface view) {
@@ -20,6 +21,7 @@ public class SignupPresenter implements AuthPresenter {
 
         if (instance == null)
             instance = new SignupPresenter(view);
+        SignupPresenter.view=view;
         return instance;
 
     }
@@ -54,7 +56,7 @@ public class SignupPresenter implements AuthPresenter {
 
         if (isValid) {
             authManager = new AuthManager();
-            authManager.Signup(email, password,this);
+            authManager.Signup(email, password, name , this);
         }
 
     }
@@ -72,6 +74,7 @@ public class SignupPresenter implements AuthPresenter {
 
     @Override
     public void onSuccess() {
+        authManager.setUpUserId();
         view.onSignupSuccess();
     }
 

@@ -22,7 +22,7 @@ public class FavoriteMeal {
         this.strMealThumb = strMealThumb;
     }
 
-
+    public FavoriteMeal(){}
 
     public int getId() {
         return id;

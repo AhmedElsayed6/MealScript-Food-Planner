@@ -1,4 +1,4 @@
-package com.example.mealscript.Local;
+package com.example.mealscript.DB.Local;
 
 import android.content.Context;
 import android.content.SharedPreferences;

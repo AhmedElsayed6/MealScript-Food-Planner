@@ -2,6 +2,7 @@ package com.example.mealscript.Home.Views;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,7 +44,6 @@ public class HomePage extends Fragment implements  HomePageInterface {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        presenter.getData();
         parentRecyclerView = view.findViewById(R.id.parentRecyclerView);
         parentRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
     }

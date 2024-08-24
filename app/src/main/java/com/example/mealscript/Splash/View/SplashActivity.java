@@ -19,7 +19,6 @@ import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class SplashActivity extends AppCompatActivity {
-    public static String TAG = "OBONE";
     public SplashPresenter presenter ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,10 +46,5 @@ public class SplashActivity extends AppCompatActivity {
         Intent intent = new Intent(this, HomeActivity.class);
         startActivity(intent);
         finish();
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
     }
 }

@@ -2,8 +2,8 @@ package com.example.mealscript.Repo;
 
 import android.content.Context;
 
-import com.example.mealscript.Local.MealLocalDataSource;
-import com.example.mealscript.Local.Utils;
+import com.example.mealscript.DB.Local.MealLocalDataSource;
+import com.example.mealscript.DB.Local.Utils;
 import com.example.mealscript.Model.Categories;
 import com.example.mealscript.Model.Category;
 import com.example.mealscript.Model.ContainerMealLists;
@@ -25,15 +25,13 @@ import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class Repo {
-    private MealRemoteDataSource remoteDataSource;
-    private MealLocalDataSource localDataSource;
+    private static MealRemoteDataSource remoteDataSource;
+    private static MealLocalDataSource localDataSource;
     private Utils utils;
     private static Repo instance = null;
-    private Context context;
+    private static Context context;
 
     private Repo(Context context) {
-        remoteDataSource = MealRemoteDataSource.getInstance();
-        localDataSource = MealLocalDataSource.getInstance(context);
         this.context = context;
     }
 
@@ -41,6 +39,10 @@ public class Repo {
         if (instance == null) {
             instance = new Repo(context);
         }
+        Repo.context = context;
+        remoteDataSource = MealRemoteDataSource.getInstance();
+        localDataSource = MealLocalDataSource.getInstance(context);
+
         return instance;
     }
 
@@ -84,6 +86,7 @@ public class Repo {
     }
 
     public Completable insertFavoriteMeal(FavoriteMeal product) {
+
         return localDataSource.insertFavoriteMeal(product);
     }
 
@@ -209,5 +212,17 @@ public class Repo {
     public Flowable<List<PlannerMeal>> getPlannerMealsList() {
         return localDataSource.getPlannerMealsList();
     }
+    public Single<List<PlannerMeal>> getPlannerMealsListSingle() {
+        return localDataSource.getPlannerMealListSingle();
+    }
+
+
+    public Completable replaceFavoriteMealListForFireStore(List<FavoriteMeal> favoriteMealList){
+        return localDataSource.replaceFavoriteMealListForFireStore(favoriteMealList);
+    }
+    public Completable replacePlannerMealListForFireStore(List<PlannerMeal> plannerMealList){
+        return localDataSource.replacePlannerMealListForFireStore(plannerMealList);
+    }
+
 
 }

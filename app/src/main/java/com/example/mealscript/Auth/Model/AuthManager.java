@@ -4,11 +4,11 @@ import android.content.Intent;
 import android.util.Log;
 
 import com.example.mealscript.Auth.Presenters.AuthPresenter;
-import com.example.mealscript.R;
+import com.example.mealscript.DB.Remote.RemoteDataBase;
+import com.example.mealscript.Model.FavoriteMeal;
+import com.example.mealscript.Model.PlannerMeal;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
@@ -17,19 +17,32 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
+import java.util.ArrayList;
+
 import io.reactivex.rxjava3.annotations.NonNull;
 
 public class AuthManager {
-    private static String TAG ="AuthManager";
-    private static  boolean isGuest = false;
+    private static String TAG = "AuthManager";
+    private  RemoteDataBase remoteDataBase;
+    public static boolean isIsGuest() {
+        return isGuest;
+    }
+
+    private static boolean isGuest = false;
     private static FirebaseAuth mAuth;
-    private  String currentUserId;
+    private String currentUserId = null;
+
+
     public AuthManager() {
         mAuth = FirebaseAuth.getInstance();
+        if (mAuth.getCurrentUser() != null)
+            currentUserId = mAuth.getCurrentUser().getUid();
+    }
+    public void setUpUserId(){
         currentUserId = mAuth.getCurrentUser().getUid();
     }
 
-    public void Login(String email, String password, AuthPresenter presenter ){
+    public void Login(String email, String password, AuthPresenter presenter) {
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -38,7 +51,7 @@ public class AuthManager {
                     presenter.onSuccess();
 //                                FirebaseUser user = mAuth.getCurrentUser();
 //                                user.getDisplayName();
-
+                    setGuestMode(false);
                 } else {
                     Log.i(TAG, "onComplete Login : fail");
                     presenter.onFail();
@@ -47,24 +60,32 @@ public class AuthManager {
         });
 
     }
-    public void Signup(String email, String password, AuthPresenter presenter ){
+
+    public void Signup(String email, String password,String name, AuthPresenter presenter) {
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+                            remoteDataBase = new RemoteDataBase();
+                            User user = new User();
+                            user.setDisplayName(name);
+                            user.setEmail(email);
+                            user.setUserId(task.getResult().getUser().getUid());
+                            user.setFavoriteMealList(new ArrayList<FavoriteMeal>());
+                            user.setPlannerMealList(new ArrayList<PlannerMeal>());
+                            remoteDataBase.insertUser(user);
+                            Log.i("TAGHOMEPAGE", "onComplete Registeration: success ");
+                            setGuestMode(false);
                             presenter.onSuccess();
-                            Log.i(TAG, "onComplete Registeration: success ");
-//                                FirebaseUser user = mAuth.getCurrentUser();
-//                                user.getDisplayName();
-
                         } else {
                             Log.i(TAG, "onComplete Registeration : fail");
                         }
                     }
                 });
     }
-    public void SignInUpWithGoogle(Intent data,AuthPresenter presenter) {
+
+    public void SignInUpWithGoogle(Intent data, AuthPresenter presenter) {
         GoogleSignIn.getSignedInAccountFromIntent(data)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
@@ -75,8 +96,16 @@ public class AuthManager {
                             FirebaseAuth.getInstance().signInWithCredential(credential)
                                     .addOnCompleteListener(authTask -> {
                                         if (authTask.isSuccessful()) {
-                                            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                                            remoteDataBase = new RemoteDataBase();
+                                            User user = new User();
+                                            user.setDisplayName(account.getDisplayName());
+                                            user.setEmail(account.getEmail());
+                                            user.setUserId(task.getResult().getId());
+                                            user.setFavoriteMealList(new ArrayList<FavoriteMeal>());
+                                            user.setPlannerMealList(new ArrayList<PlannerMeal>());
+                                            remoteDataBase.insertUser(user);
                                             Log.i(TAG, "handleSignInResult: Firebase sign-in successful");
+                                            setGuestMode(false);
                                             presenter.onSuccess();
                                         } else {
                                             Log.e(TAG, "handleSignInResult: Firebase sign-in failed", authTask.getException());
@@ -90,19 +119,24 @@ public class AuthManager {
                     }
                 });
     }
-    public  void SignOut(){
+
+    public void SignOut() {
         mAuth.signOut();
     }
-    public  boolean  isUserLoggedIn() {
+
+    public boolean isUserLoggedIn() {
         return mAuth.getCurrentUser() != null;
     }
-    public static boolean isGuestMode(){
-        return  isGuest;
+
+    public static boolean isGuestMode() {
+        return isGuest;
     }
-    public  String getCurrentUserId(){
-        return  currentUserId;
+
+    public String getCurrentUserId() {
+        return currentUserId;
     }
-    public void setGuestMode(boolean isGuest){
-        this.isGuest=isGuest;
+
+    public void setGuestMode(boolean isGuest) {
+        this.isGuest = isGuest;
     }
 }
