@@ -56,10 +56,11 @@ public class SearchPage extends Fragment implements SearchPageInterface {
         recyclerViewSearch.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         searchRecyclerViewAdapter = new SearchRecyclerViewAdapter(this, new ArrayList<Meal>());
         recyclerViewSearch.setAdapter(searchRecyclerViewAdapter);
+
         searchView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                if (actionId == EditorInfo.IME_ACTION_DONE || actionId == EditorInfo.IME_ACTION_GO || actionId == EditorInfo.IME_ACTION_NEXT ) {
                     String enteredText = searchView.getText().toString();
                     Chip selectedChip = view.findViewById(chipGroupSearchCat.getCheckedChipId());
                     String selectedText = selectedChip != null ? selectedChip.getText().toString() : "";
