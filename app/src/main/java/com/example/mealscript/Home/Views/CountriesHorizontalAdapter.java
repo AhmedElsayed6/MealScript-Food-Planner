@@ -57,7 +57,7 @@ public class CountriesHorizontalAdapter extends RecyclerView.Adapter<CountriesHo
         if (country.compareToIgnoreCase("unknown") != 0) {
             holder.getTextViewCardCCname().setText(areasList.get(position).getStrArea());
             Glide.with(context).load("https://flagsapi.com/" + CuisineAreaEnum.getCountryCodeByArea(areasList.get(position).getStrArea()) + "/shiny/64.png").apply(new RequestOptions()
-                    .placeholder(R.drawable.ingradient)
+                    .placeholder(R.drawable.png_food_placeholder)
                     .error(R.drawable.png_food_error)).into(holder.getImageViewCardCC());
         }
 

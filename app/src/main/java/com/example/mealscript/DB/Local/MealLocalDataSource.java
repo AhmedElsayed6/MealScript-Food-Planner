@@ -2,7 +2,7 @@ package com.example.mealscript.DB.Local;
 
 import android.content.Context;
 
-import com.example.mealscript.Auth.Model.AuthManager;
+import com.example.mealscript.Model.AuthManager;
 import com.example.mealscript.Model.FavoriteMeal;
 import com.example.mealscript.Model.PlannerMeal;
 
@@ -19,12 +19,14 @@ public class MealLocalDataSource {
     private static Flowable<List<PlannerMeal>> plannerMealList;
     private static MealLocalDataSource instance = null;
     private static AuthManager authManager;
-    private static  AppDataBase db;
+    private static AppDataBase db;
+
     private MealLocalDataSource(Context context) {
-         db = AppDataBase.getInstance(context.getApplicationContext());
+        db = AppDataBase.getInstance(context.getApplicationContext());
         authManager = new AuthManager();
         favMealDao = db.getFavMealDao();
-        plannerMealDao = db.getPlannerMealDao();;
+        plannerMealDao = db.getPlannerMealDao();
+        ;
     }
 
     public static MealLocalDataSource getInstance(Context context) {
@@ -49,8 +51,8 @@ public class MealLocalDataSource {
 
 
     public Completable insertFavoriteMeal(FavoriteMeal meal) {
-        if(!AuthManager.isGuestMode())
-        return favMealDao.insertFavoriteMeal(meal);
+        if (!AuthManager.isGuestMode())
+            return favMealDao.insertFavoriteMeal(meal);
         else return Completable.never();
     }
 
@@ -59,34 +61,33 @@ public class MealLocalDataSource {
     }
 
 
-    // insert
     public Completable insertPlannerMeal(PlannerMeal meal) {
-        if(!AuthManager.isGuestMode())
+        if (!AuthManager.isGuestMode())
             return plannerMealDao.insertPlannerMeal(meal);
         else return Completable.never();
     }
-    // delete
+
+
     public Completable deleteByUserIdAndIdMealFromPlanner(String userId, String idMeal, int dayOfTheWeek) {
-        return plannerMealDao.deleteByUserIdAndIdMealFromPlanner(userId, idMeal , dayOfTheWeek);
+        return plannerMealDao.deleteByUserIdAndIdMealFromPlanner(userId, idMeal, dayOfTheWeek);
     }
 
     public Flowable<List<PlannerMeal>> getPlannerMealsList() {
         return plannerMealList;
     }
+
     public Single<List<PlannerMeal>> getPlannerMealListSingle() {
         return plannerMealDao.getAllPlannerMealsSingle(authManager.getCurrentUserId());
     }
 
-    public Completable replaceFavoriteMealListForFireStore(List<FavoriteMeal> favoriteMealList){
-        return  favMealDao.deleteAllFromFav(authManager.getCurrentUserId()).andThen(favMealDao.insertFavoriteMealList(favoriteMealList));
+    public Completable replaceFavoriteMealListForFireStore(List<FavoriteMeal> favoriteMealList) {
+        return favMealDao.deleteAllFromFav(authManager.getCurrentUserId()).andThen(favMealDao.insertFavoriteMealList(favoriteMealList));
 
     }
-    public Completable replacePlannerMealListForFireStore(List<PlannerMeal> plannerMealList){
+
+    public Completable replacePlannerMealListForFireStore(List<PlannerMeal> plannerMealList) {
         return plannerMealDao.deleteAllFromPlanner(authManager.getCurrentUserId()).andThen(plannerMealDao.insertPlannerMealList(plannerMealList));
     }
-
-
-
 
 
 }

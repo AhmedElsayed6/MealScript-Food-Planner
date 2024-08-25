@@ -19,7 +19,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:navigationIcon="@drawable/arrowback"
-        app:title="Hello" />
+        app:title="" />
 
     <TextView
         android:id="@+id/textView4"
@@ -98,6 +98,7 @@
         android:fontFamily="@font/roboto_medium_italic"
         android:text="@string/loginScreenForgotPasswordText"
         android:textStyle="italic"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="@+id/textInputLayout2"
         app:layout_constraintStart_toStartOf="@+id/textInputLayout2"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout2" />
@@ -105,7 +106,6 @@
     <Button
         android:id="@+id/btnLoginLogin"
         style="@style/myButton"
-        android:layout_marginTop="30dp"
         android:text="@string/loginScreenLoginButtonText"
         android:theme="@style/myButton"
         app:layout_constraintEnd_toEndOf="parent"

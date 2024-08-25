@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import com.example.mealscript.Model.Meal;
 import com.example.mealscript.R;
 import com.example.mealscript.Search.Presenter.SearchPagePresenter;
+import com.example.mealscript.Search.Presenter.SearchPagePresenterImpl;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 
@@ -48,12 +49,12 @@ public class SearchPage extends Fragment implements SearchPageInterface {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        presenter = new SearchPagePresenter(this, this.getContext());
+        presenter = new SearchPagePresenterImpl(this, this.getContext());
         chipGroupSearchCat = view.findViewById(R.id.chipGroupSearchCat);
         recyclerViewSearch = view.findViewById(R.id.recyclerViewSearch);
         searchView = view.findViewById(R.id.searchView);
         recyclerViewSearch.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
-        searchRecyclerViewAdapter = new SearchRecyclerViewAdapter(this,new ArrayList<Meal>());
+        searchRecyclerViewAdapter = new SearchRecyclerViewAdapter(this, new ArrayList<Meal>());
         recyclerViewSearch.setAdapter(searchRecyclerViewAdapter);
         searchView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override

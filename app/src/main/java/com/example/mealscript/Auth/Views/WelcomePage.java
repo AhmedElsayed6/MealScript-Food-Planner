@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.VideoView;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -23,6 +24,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import com.example.mealscript.Auth.Presenters.WelcomePresenter;
+import com.example.mealscript.Auth.Presenters.WelcomePresenterImpl;
 import com.example.mealscript.Home.Views.HomeActivity;
 import com.example.mealscript.R;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -42,11 +44,14 @@ public class WelcomePage extends Fragment implements WelcomePageInterface {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        //Create  A Google Sign in Option with me requesting the EmailAddress
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
         googleSignInClient = GoogleSignIn.getClient(requireActivity(), gso);
+        //Create An Activity Launcher to lunch the google Sign in activity
+        // requires a contract and a callback method to call on the result
         signInLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 result -> {
@@ -54,7 +59,7 @@ public class WelcomePage extends Fragment implements WelcomePageInterface {
                         Intent data = result.getData();
                         presenter.SignInUpWithGoogle(data);
                     } else {
-
+                        Toast.makeText(this.getContext(), "SignIn Failed", Toast.LENGTH_SHORT).show();
                     }
                 }
         );
@@ -69,7 +74,7 @@ public class WelcomePage extends Fragment implements WelcomePageInterface {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        presenter = WelcomePresenter.getInstance(this);
+        presenter = WelcomePresenterImpl.getInstance(this);
         videoViewWelcome = view.findViewById(R.id.videoViewWelcome);
         textViewWelcomeLoginbtn = view.findViewById(R.id.textViewWelcomeLoginbtn);
         btnWelcomeSignupEmail = view.findViewById(R.id.btnWelcomeSignupEmail);
@@ -137,7 +142,7 @@ public class WelcomePage extends Fragment implements WelcomePageInterface {
         videoViewWelcome.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override
             public void onPrepared(MediaPlayer mp) {
-                mp.setLooping(true); // Set the video to loop
+                mp.setLooping(true);
                 videoViewWelcome.start();
             }
         });
@@ -155,6 +160,7 @@ public class WelcomePage extends Fragment implements WelcomePageInterface {
                 presenter.setUpGuestMode();
                 Intent toHome = new Intent(getActivity(), HomeActivity.class);
                 startActivity(toHome);
+                getActivity().finish();
             }
         });
         builder.setNegativeButton("NO,GO BACK", new DialogInterface.OnClickListener() {
@@ -167,13 +173,14 @@ public class WelcomePage extends Fragment implements WelcomePageInterface {
         dialog.show();
     }
     @Override
-    public void onGoogleFail() {
-    //?
+    public void onGoogleFail(String message) {
+        Toast.makeText(this.getContext(), message , Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onGoogleSuccess() {
         Intent toHome = new Intent(getActivity(), HomeActivity.class);
         startActivity(toHome);
+        getActivity().finish();
     }
 }

@@ -3,14 +3,13 @@ package com.example.mealscript.Splash.View;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.mealscript.Auth.Model.AuthManager;
 import com.example.mealscript.Auth.Views.AuthActivity;
 import com.example.mealscript.Home.Views.HomeActivity;
 import com.example.mealscript.R;
 import com.example.mealscript.Splash.Presenter.SplashPresenter;
+import com.example.mealscript.Splash.Presenter.SplashPresenterImpl;
 
 import java.util.concurrent.TimeUnit;
 
@@ -24,7 +23,7 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        presenter=  SplashPresenter.getInstance();
+        presenter=  SplashPresenterImpl.getInstance();
         Observable.timer(1, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

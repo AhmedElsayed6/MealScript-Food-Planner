@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,6 +19,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.mealscript.Auth.Presenters.LoginPresenter;
+import com.example.mealscript.Auth.Presenters.LoginPresenterImpl;
 import com.example.mealscript.Home.Views.HomeActivity;
 import com.example.mealscript.R;
 import com.google.android.material.textfield.TextInputEditText;
@@ -30,11 +32,10 @@ public class LoginPage extends Fragment implements LoginPageInterface {
     Toolbar toolbarLogin;
     NavController navController;
     LoginPresenter presenter;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
     }
 
     @Override
@@ -48,7 +49,7 @@ public class LoginPage extends Fragment implements LoginPageInterface {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        presenter = LoginPresenter.getInstance(this);
+        presenter = LoginPresenterImpl.getInstance(this);
         textInputLoginEmail = view.findViewById(R.id.textInputLoginEmail);
         textInputLoginPassword = view.findViewById(R.id.textInputLoginPassword);
         btnLoginLogin = view.findViewById(R.id.btnLoginLogin);
@@ -56,20 +57,15 @@ public class LoginPage extends Fragment implements LoginPageInterface {
         toolbarLogin = view.findViewById(R.id.toolbarLogin);
         ConfigAppBar(view);
 
-
-
-        btnLoginLogin.setOnClickListener((e)->{
+        btnLoginLogin.setOnClickListener((e) -> {
             String email = textInputLoginEmail.getText().toString();
             String password = textInputLoginPassword.getText().toString();
-            presenter.validateUser( email, password);
+            presenter.validateUser(email, password);
         });
     }
 
 
-
-
-
-    private  void ConfigAppBar(View view){
+    private void ConfigAppBar(View view) {
         navController = Navigation.findNavController(view);
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(R.id.welcomePage).build();
         NavigationUI.setupWithNavController(toolbarLogin, navController, appBarConfiguration);
@@ -90,10 +86,11 @@ public class LoginPage extends Fragment implements LoginPageInterface {
     public void onLoginSuccess() {
         Intent toHome = new Intent(getActivity(), HomeActivity.class);
         startActivity(toHome);
+        getActivity().finish();
     }
 
     @Override
-    public void onLoginFail() {
-
+    public void onLoginFail(String message) {
+        Toast.makeText(this.getContext(), message, Toast.LENGTH_SHORT).show();
     }
 }

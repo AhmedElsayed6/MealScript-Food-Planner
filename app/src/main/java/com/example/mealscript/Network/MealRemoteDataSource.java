@@ -86,6 +86,7 @@ public class MealRemoteDataSource {
                     for (Meal meal : mealResponse.getMealsList()) {
                         categoryNames.add(meal.getStrCategory());
                     }
+
                     return categoryNames;
                 })
                 .flatMap(categoryNames -> {

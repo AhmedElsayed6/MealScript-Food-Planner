@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,6 +18,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.mealscript.Auth.Presenters.SignupPresenter;
+import com.example.mealscript.Auth.Presenters.SignupPresenterImpl;
 import com.example.mealscript.Home.Views.HomeActivity;
 import com.example.mealscript.R;
 import com.google.android.material.textfield.TextInputEditText;
@@ -44,7 +46,7 @@ public class SignupPage extends Fragment implements SignupPageInterface {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        presenter = SignupPresenter.getInstance(this);
+        presenter = SignupPresenterImpl.getInstance(this);
         textInputSignupPasswordConfirm = view.findViewById(R.id.textInputSignupPasswordConfirm);
         textInputSignupDisplayName = view.findViewById(R.id.textInputSignupDisplayName);
         textInputSignupEmail = view.findViewById(R.id.textInputSignupEmail);
@@ -53,7 +55,6 @@ public class SignupPage extends Fragment implements SignupPageInterface {
         toolbarSignup = view.findViewById(R.id.toolbarSignup);
         ConfigAppBar(view);
 
-
         btnSignupSignup.setOnClickListener((e) -> {
             String email = textInputSignupEmail.getText().toString();
             String displayName = textInputSignupDisplayName.getText().toString();
@@ -61,8 +62,6 @@ public class SignupPage extends Fragment implements SignupPageInterface {
             String confirmPassword = textInputSignupPasswordConfirm.getText().toString();
             presenter.validateUser(displayName, email, password, confirmPassword);
         });
-
-
     }
 
     private void ConfigAppBar(View view) {
@@ -99,8 +98,8 @@ public class SignupPage extends Fragment implements SignupPageInterface {
     }
 
     @Override
-    public void onSignupFail() {
-
+    public void onSignupFail(String message) {
+        Toast.makeText(this.getContext(), message , Toast.LENGTH_SHORT).show();
     }
 
 

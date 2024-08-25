@@ -2,8 +2,8 @@ package com.example.mealscript.Filter.Presenter;
 
 import android.content.Context;
 
-import com.example.mealscript.Auth.Model.AuthManager;
 import com.example.mealscript.Filter.View.FilterPageInterface;
+import com.example.mealscript.Model.AuthManager;
 import com.example.mealscript.Model.ContainerMealLists;
 import com.example.mealscript.Model.FavoriteMeal;
 import com.example.mealscript.Model.Meal;
@@ -16,7 +16,6 @@ public class FilterPagePresenter {
     private FilterPageInterface view;
     private Repo repo;
     private ContainerMealLists items;
-    private Context context;
 
     public FilterPagePresenter(FilterPageInterface view, Context context) {
         this.view = view;
@@ -56,20 +55,15 @@ public class FilterPagePresenter {
                 break;
         }
     }
+
     public void insertMeal(Meal meal) {
         AuthManager authManager = new AuthManager();
         if (!authManager.isGuestMode()) {
             FavoriteMeal favMeal = new FavoriteMeal(authManager.getCurrentUserId(), meal.getStrMeal(), meal.getIdMeal(), meal.getStrMealThumb());
             repo.insertFavoriteMeal(favMeal).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(
-                            () -> {
-                            },
-                            throwable -> {
-                                //view.showError(throwable.getMessage());
-                            }
-                    );
+                    .subscribe();
         } else {
-            //  view.showGuestModeMessage("You can't add or remove favorite items guest mode!");
+            view.showErrorSnackBar("You can't add or remove favorite items guest mode!");
         }
 
     }
@@ -78,15 +72,9 @@ public class FilterPagePresenter {
         AuthManager authManager = new AuthManager();
         if (!authManager.isGuestMode()) {
             repo.deleteByUserIdAndIdMeal(authManager.getCurrentUserId(), meal.getIdMeal()).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(
-                            () -> {
-                            },
-                            throwable -> {
-                                //view.showError(throwable.getMessage());
-                            }
-                    );
+                    .subscribe();
         } else {
-            // view.showGuestModeMessage("You can't add or remove favorite items guest mode!");
+            view.showErrorSnackBar("You can't add or remove favorite items guest mode!");
         }
 
     }

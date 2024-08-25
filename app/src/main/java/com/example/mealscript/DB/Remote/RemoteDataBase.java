@@ -2,8 +2,8 @@ package com.example.mealscript.DB.Remote;
 
 import android.util.Log;
 
-import com.example.mealscript.Auth.Model.AuthManager;
-import com.example.mealscript.Auth.Model.User;
+import com.example.mealscript.Model.AuthManager;
+import com.example.mealscript.Model.User;
 import com.example.mealscript.Model.FavoriteMeal;
 import com.example.mealscript.Model.PlannerMeal;
 import com.example.mealscript.Profile.Presenter.CallbackForProfile;

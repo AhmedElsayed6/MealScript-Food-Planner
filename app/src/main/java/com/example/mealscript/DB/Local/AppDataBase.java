@@ -12,14 +12,13 @@ import com.example.mealscript.Model.PlannerMeal;
 
 @Database(entities = {FavoriteMeal.class, PlannerMeal.class}, version = 3)
 public abstract class AppDataBase extends RoomDatabase {
-    //singleton
+
     private static AppDataBase instance = null;
 
     public abstract FavMealDao getFavMealDao();
 
     public abstract PlannerMealDao getPlannerMealDao();
 
-    // on thread at a time to access this method
 
     public static synchronized AppDataBase getInstance(Context context) {
         if (instance == null)

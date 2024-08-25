@@ -13,5 +13,6 @@ public interface HomePageInterface {
     public void addToFavorite(Meal meal);
     public void removeFromFavorite(Meal meal);
     public void showGuestModeMessage(String message);
+    public void showDataError(String message);
 
 }

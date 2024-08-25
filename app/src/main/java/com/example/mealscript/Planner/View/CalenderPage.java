@@ -15,6 +15,7 @@ import com.example.mealscript.MealDetails.Views.MealDetailsActivity;
 import com.example.mealscript.Model.Meal;
 import com.example.mealscript.Model.PlannerMeal;
 import com.example.mealscript.Planner.Presenter.CalenderPagePresenter;
+import com.example.mealscript.Planner.Presenter.CalenderPagePresenterImpl;
 import com.example.mealscript.R;
 
 import java.util.ArrayList;
@@ -41,7 +42,7 @@ public class CalenderPage extends Fragment implements CalenderPageInterface {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        presenter = new CalenderPagePresenter(this, getContext());
+        presenter = new CalenderPagePresenterImpl(this, getContext());
         presenter.getPlannerMeals();
         satRecyclerView = view.findViewById(R.id.satRecyclerView);
         sunRecyclerView = view.findViewById(R.id.sunRecyclerView);

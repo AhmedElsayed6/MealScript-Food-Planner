@@ -1,9 +1,5 @@
-package com.example.mealscript.Auth.Model;
+package com.example.mealscript.Model;
 
-import com.example.mealscript.Model.FavoriteMeal;
-import com.example.mealscript.Model.PlannerMeal;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class User {

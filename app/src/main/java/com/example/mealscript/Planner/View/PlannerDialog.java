@@ -8,25 +8,27 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.example.mealscript.Planner.Presenter.PlannerDialogPresenter;
+import com.example.mealscript.Planner.Presenter.PlannerDialogPresenterImpl;
 import com.example.mealscript.R;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 
-public class PlannerDialog {
+public class PlannerDialog implements PlannerDialogInterface {
     private String mealId, mealName, mealImage;
     private Context context;
-    private PlannerDialogPresenter presenter;
+    private PlannerDialogPresenterImpl presenter;
+
 
     public PlannerDialog(Context context, String mealId, String mealName, String mealImage) {
         this.context = context;
         this.mealId = mealId;
         this.mealName = mealName;
         this.mealImage = mealImage;
-        this.presenter = new PlannerDialogPresenter(context);
+        this.presenter = new PlannerDialogPresenterImpl(this,context);
     }
 
     public void showDialog() {
@@ -58,11 +60,10 @@ public class PlannerDialog {
         });
 
 
-    }
 
-    public interface DialogCallback {
-        void onSubmit(String input);
     }
-
+    public void showError(String message){
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+    }
 
 }

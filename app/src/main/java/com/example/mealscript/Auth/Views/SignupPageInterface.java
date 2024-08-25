@@ -7,7 +7,7 @@ public interface SignupPageInterface {
     public void showPasswordTextError();
     public void showConfirmPasswordTextError();
     public void onSignupSuccess();
-    public void onSignupFail();
+    public void onSignupFail(String message);
 
 
 }

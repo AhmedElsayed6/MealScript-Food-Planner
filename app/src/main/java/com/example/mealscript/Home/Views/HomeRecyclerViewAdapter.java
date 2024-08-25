@@ -30,14 +30,14 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
-public class ParentRecyclerViewAdapter extends RecyclerView.Adapter<ParentRecyclerViewAdapter.ViewHolder> {
+public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerViewAdapter.ViewHolder> {
 
     private CardStackLayoutManager lmForCardStackView = null;
     private HomePageInterface view;
     private CardStackAdapter cardStackAdapter;
     private ContainerMealLists containerMealLists;
 
-    public ParentRecyclerViewAdapter(ContainerMealLists containerMealLists, HomePageInterface view) {
+    public HomeRecyclerViewAdapter(ContainerMealLists containerMealLists, HomePageInterface view) {
         this.containerMealLists = containerMealLists;
         this.view = view;
     }
@@ -46,7 +46,7 @@ public class ParentRecyclerViewAdapter extends RecyclerView.Adapter<ParentRecycl
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.parent_home_recyclerview_item, parent, false);
-        return new ParentRecyclerViewAdapter.ViewHolder(view);
+        return new HomeRecyclerViewAdapter.ViewHolder(view);
     }
 
     @Override
@@ -131,32 +131,8 @@ public class ParentRecyclerViewAdapter extends RecyclerView.Adapter<ParentRecycl
         holder.recyclerViewHomeScreenSavedDesserts.setAdapter(horizontalAdapterForDesserts);
         holder.recyclerViewHomeScreenMYML.setAdapter(horizontalRecyclerForMYML);
         holder.recyclerViewHomeScreenCountries.setAdapter(horizontalAdapterForCountries);
-        //    autoScroll(llmForCategories,holder.recyclerViewHomeScreenCategories);
-        //    autoScroll(llmForDesserts,holder.recyclerViewHomeScreenSavedDesserts);
-
 
     }
-
-    private void autoScroll(LinearLayoutManager llm, RecyclerView rv) {
-        final int totalItemCount = llm.getItemCount();
-
-        Observable.interval(2, 5, TimeUnit.SECONDS) // Start after 2 seconds, scroll every 5 seconds
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(aLong -> {
-                    int currentPosition = llm.findFirstVisibleItemPosition();
-                    int nextPosition = currentPosition + 2; // Move forward by two items
-
-                    if (nextPosition >= totalItemCount) {
-                        nextPosition = 0; // Loop back to the start if at the end
-                    }
-
-                    rv.smoothScrollToPosition(nextPosition);
-                }, throwable -> {
-                    // Handle any potential errors
-                });
-    }
-
 
     @Override
     public int getItemCount() {
@@ -183,8 +159,6 @@ public class ParentRecyclerViewAdapter extends RecyclerView.Adapter<ParentRecycl
 
     public void setItems(ContainerMealLists container) {
         containerMealLists = container;
-        //cardStackAdapter.setItems(container.getDailyInspirationsList());
-
         notifyDataSetChanged();
     }
 }

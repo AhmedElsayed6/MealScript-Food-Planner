@@ -1,12 +1,10 @@
-package com.example.mealscript.Auth.Model;
+package com.example.mealscript.Model;
 
 import android.content.Intent;
 import android.util.Log;
 
 import com.example.mealscript.Auth.Presenters.AuthPresenter;
 import com.example.mealscript.DB.Remote.RemoteDataBase;
-import com.example.mealscript.Model.FavoriteMeal;
-import com.example.mealscript.Model.PlannerMeal;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -14,7 +12,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
 import java.util.ArrayList;
@@ -49,12 +46,9 @@ public class AuthManager {
                 if (task.isSuccessful()) {
                     Log.i(TAG, "onComplete Login: success ");
                     presenter.onSuccess();
-//                                FirebaseUser user = mAuth.getCurrentUser();
-//                                user.getDisplayName();
                     setGuestMode(false);
                 } else {
-                    Log.i(TAG, "onComplete Login : fail");
-                    presenter.onFail();
+                    presenter.onFail(task.getException().getMessage());
                 }
             }
         });
@@ -75,11 +69,10 @@ public class AuthManager {
                             user.setFavoriteMealList(new ArrayList<FavoriteMeal>());
                             user.setPlannerMealList(new ArrayList<PlannerMeal>());
                             remoteDataBase.insertUser(user);
-                            Log.i("TAGHOMEPAGE", "onComplete Registeration: success ");
                             setGuestMode(false);
                             presenter.onSuccess();
                         } else {
-                            Log.i(TAG, "onComplete Registeration : fail");
+                            presenter.onFail("Email Already used by another account");
                         }
                     }
                 });
@@ -104,18 +97,17 @@ public class AuthManager {
                                             user.setFavoriteMealList(new ArrayList<FavoriteMeal>());
                                             user.setPlannerMealList(new ArrayList<PlannerMeal>());
                                             remoteDataBase.insertUser(user);
-                                            Log.i(TAG, "handleSignInResult: Firebase sign-in successful");
                                             setGuestMode(false);
                                             presenter.onSuccess();
                                         } else {
-                                            Log.e(TAG, "handleSignInResult: Firebase sign-in failed", authTask.getException());
+                                            presenter.onFail("Failed To Signup");
                                         }
                                     });
                         } else {
-                            Log.e(TAG, "handleSignInResult: GoogleSignInAccount is null");
+                            presenter.onFail("Failed To Signup");
                         }
                     } else {
-                        Log.e(TAG, "handleSignInResult: Google sign-in failed", task.getException());
+                        presenter.onFail("Failed To Signup");
                     }
                 });
     }

@@ -47,7 +47,7 @@ public class CategoriesHorizontalAdapter extends RecyclerView.Adapter<Categories
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
         holder.getCardHolderCadViewCC().setOnClickListener((e) -> {
-            view.navigateToFilterActivity(categoryList.get(position).getStrCategory() , "Category");
+            view.navigateToFilterActivity(categoryList.get(position).getStrCategory(), "Category");
         });
         holder.getTextViewCardCCname().setText(categoryList.get(position).getStrCategory());
         Glide.with(context).load(categoryList.get(position).getStrCategoryThumb()).apply(new RequestOptions()

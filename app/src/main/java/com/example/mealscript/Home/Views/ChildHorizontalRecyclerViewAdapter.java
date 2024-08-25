@@ -77,8 +77,8 @@ public class ChildHorizontalRecyclerViewAdapter extends RecyclerView.Adapter<Chi
         });
         holder.getTextViewCardMealNameHZ().setText(item.getStrMeal());
         Glide.with(context).load(item.getStrMealThumb()).apply(new RequestOptions()
-                .placeholder(R.drawable.ic_launcher_background)
-                .error(R.drawable.ic_launcher_foreground)).into(holder.getImageViewCardMealHZ());
+                .placeholder(R.drawable.png_food_placeholder)
+                .error(R.drawable.png_food_error)).into(holder.getImageViewCardMealHZ());
 
 
     }

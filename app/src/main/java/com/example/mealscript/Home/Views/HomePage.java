@@ -2,7 +2,6 @@ package com.example.mealscript.Home.Views;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mealscript.Filter.View.FilterActivity;
 import com.example.mealscript.Home.Presenters.HomePagePresenter;
+import com.example.mealscript.Home.Presenters.HomePagePresenterImpl;
 import com.example.mealscript.MealDetails.Views.MealDetailsActivity;
 import com.example.mealscript.Model.ContainerMealLists;
 import com.example.mealscript.Model.Meal;
@@ -26,12 +26,12 @@ public class HomePage extends Fragment implements  HomePageInterface {
     RecyclerView parentRecyclerView;
     HomePagePresenter presenter;
     ContainerMealLists containerMealLists;
-    ParentRecyclerViewAdapter parentRecyclerAdapter;
+    HomeRecyclerViewAdapter parentRecyclerAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        presenter = HomePagePresenter.getInstance(this, this.getContext());
+        presenter = HomePagePresenterImpl.getInstance(this, this.getContext());
     }
 
     @Override
@@ -53,7 +53,7 @@ public class HomePage extends Fragment implements  HomePageInterface {
         super.onResume();
         presenter.getData();
         containerMealLists = new ContainerMealLists();
-        parentRecyclerAdapter = new ParentRecyclerViewAdapter(containerMealLists,this);
+        parentRecyclerAdapter = new HomeRecyclerViewAdapter(containerMealLists,this);
         parentRecyclerView.setAdapter(parentRecyclerAdapter);
     }
 
@@ -91,6 +91,11 @@ public class HomePage extends Fragment implements  HomePageInterface {
 
     @Override
     public void showGuestModeMessage(String message) {
+        Toast.makeText(this.getContext(), message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showDataError(String message) {
         Toast.makeText(this.getContext(), message, Toast.LENGTH_SHORT).show();
     }
 

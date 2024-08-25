@@ -2,10 +2,9 @@ package com.example.mealscript.Favorite.Presenter;
 
 import android.content.Context;
 
-import com.example.mealscript.Auth.Model.AuthManager;
+import com.example.mealscript.Model.AuthManager;
 import com.example.mealscript.Favorite.View.FavoriteActivityInterface;
 import com.example.mealscript.Model.FavoriteMeal;
-import com.example.mealscript.Model.Meal;
 import com.example.mealscript.Repo.Repo;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;

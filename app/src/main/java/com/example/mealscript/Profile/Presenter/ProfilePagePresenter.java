@@ -1,9 +1,8 @@
 package com.example.mealscript.Profile.Presenter;
 
 import android.content.Context;
-import android.util.Log;
 
-import com.example.mealscript.Auth.Model.AuthManager;
+import com.example.mealscript.Model.AuthManager;
 import com.example.mealscript.DB.Remote.RemoteDataBase;
 import com.example.mealscript.Model.FavoriteMeal;
 import com.example.mealscript.Model.PlannerMeal;

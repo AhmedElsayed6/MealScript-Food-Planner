@@ -52,17 +52,16 @@ public class FilterRecyclerViewAdapter extends RecyclerView.Adapter<FilterRecycl
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Meal item = items.get(position);
-        if(item.isFavorite())
+        if (item.isFavorite())
             holder.getBtnCardViewAddToFavVZ().setImageResource(R.drawable.fillheart);
         else
             holder.getBtnCardViewAddToFavVZ().setImageResource(R.drawable.outlineheart);
         holder.getBtnCardViewAddToFavVZ().setOnClickListener(v -> {
-            if(item.isFavorite()){
+            if (item.isFavorite()) {
                 holder.getBtnCardViewAddToFavVZ().setImageResource(R.drawable.outlineheart);
                 view.removeFromFavorite(item);
                 item.setFavorite(false);
-            }
-            else{
+            } else {
                 view.addToFavorite(items.get(position));
                 items.get(position).setFavorite(true);
                 holder.getBtnCardViewAddToFavVZ().setImageResource(R.drawable.fillheart);
@@ -70,7 +69,7 @@ public class FilterRecyclerViewAdapter extends RecyclerView.Adapter<FilterRecycl
 
         });
         holder.getBtnCardViewAddToPlannerVZ().setOnClickListener(v -> {
-            new PlannerDialog(context,item.getIdMeal(),item.getStrMeal(),item.getStrMealThumb()).showDialog();
+            new PlannerDialog(context, item.getIdMeal(), item.getStrMeal(), item.getStrMealThumb()).showDialog();
         });
         holder.getCardHolderCadViewVZ().setOnClickListener((e) -> {
             Intent goToMealDetails = new Intent(context, MealDetailsActivity.class);
@@ -82,7 +81,8 @@ public class FilterRecyclerViewAdapter extends RecyclerView.Adapter<FilterRecycl
                 .placeholder(R.drawable.png_food_placeholder)
                 .error(R.drawable.png_food_error)).into(holder.getImageViewCardMealVZ());
     }
-    public void setData( List<Meal> items){
+
+    public void setData(List<Meal> items) {
         this.items = items;
         notifyDataSetChanged();
     }

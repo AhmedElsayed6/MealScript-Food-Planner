@@ -4,6 +4,6 @@ public interface LoginPageInterface {
     public void showEmailTextError();
     public void showPasswordTextError();
     public void onLoginSuccess();
-    public void onLoginFail();
+    public void onLoginFail(String message);
 
 }

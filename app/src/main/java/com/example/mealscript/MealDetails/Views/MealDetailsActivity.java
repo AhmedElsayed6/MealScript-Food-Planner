@@ -2,7 +2,6 @@ package com.example.mealscript.MealDetails.Views;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.ViewTreeObserver;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -11,6 +10,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.mealscript.MealDetails.Presenter.MealDetailsActivityPresenter;
+import com.example.mealscript.MealDetails.Presenter.MealDetailsActivityPresenterImpl;
 import com.example.mealscript.Model.CuisineAreaEnum;
 import com.example.mealscript.Model.Meal;
 import com.example.mealscript.Planner.View.PlannerDialog;
@@ -29,25 +30,22 @@ import com.example.mealscript.R;
 public class MealDetailsActivity extends AppCompatActivity implements MealDetailsActivityInterface {
     LinearLayoutManager llmForIngredients;
     RecyclerView recyclerViewMealDetailsIngredients;
-    ImageView imageViewMealDetailsMeal, imageViewMealsDetailsCountriesFlags , btnCardViewMealDetailsAddToFav;
-    TextView textViewMealDetailsTitle, textViewMealsDeatilsCountryName ,textViewMealDetailsInstructions;
+    ImageView imageViewMealDetailsMeal, imageViewMealsDetailsCountriesFlags, btnCardViewMealDetailsAddToFav;
+    TextView textViewMealDetailsTitle, textViewMealsDeatilsCountryName, textViewMealDetailsInstructions;
     MealDetailsActivityPresenter presenter;
     WebView webViewYoutubeVideo;
     CardView cardToolbarMealDetails;
     Button btnAddToPlannerMealDetails;
     ScrollView scrollViewMeals;
     Toolbar toolBarMealDetails;
-
-    private static final String TAG = "ALY";
     Meal meal;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.i(TAG , "onCreate: ALY AWAD");
-        presenter = new MealDetailsActivityPresenter(this,this);
+        presenter = new MealDetailsActivityPresenterImpl(this, this);
         setContentView(R.layout.activity_meal_details);
         meal = (Meal) getIntent().getSerializableExtra("meal");
-
         imageViewMealDetailsMeal = findViewById(R.id.imageViewMealDetailsMeal);
         btnAddToPlannerMealDetails = findViewById(R.id.btnAddToPlannerMealDetails);
         cardToolbarMealDetails = findViewById(R.id.cardToolbarMealDetails);
@@ -64,12 +62,8 @@ public class MealDetailsActivity extends AppCompatActivity implements MealDetail
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
         toolBarMealDetails.setNavigationOnClickListener(v -> finish());
-        if(meal.isFavorite()){}
-        else{
-
-        }
-        btnAddToPlannerMealDetails.setOnClickListener((e)->{
-            new PlannerDialog(this,meal.getIdMeal(),meal.getStrMeal(),meal.getStrMealThumb()).showDialog();
+        btnAddToPlannerMealDetails.setOnClickListener((e) -> {
+            new PlannerDialog(this, meal.getIdMeal(), meal.getStrMeal(), meal.getStrMealThumb()).showDialog();
         });
         webViewYoutubeVideo = findViewById(R.id.webViewYoutubeVideo);
         WebSettings webSettings = webViewYoutubeVideo.getSettings();
@@ -80,7 +74,7 @@ public class MealDetailsActivity extends AppCompatActivity implements MealDetail
         llmForIngredients.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerViewMealDetailsIngredients.setLayoutManager(llmForIngredients);
         recyclerViewMealDetailsIngredients.setAdapter(adapter);
-        scrollViewMeals.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
+        imageViewMealDetailsMeal.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
             @Override
             public void onScrollChanged() {
                 int scrollY = scrollViewMeals.getScrollY();
@@ -88,15 +82,14 @@ public class MealDetailsActivity extends AppCompatActivity implements MealDetail
             }
         });
         setUpFavButton(meal);
-
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-
         presenter.onMealDataReceived(meal);
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -105,23 +98,23 @@ public class MealDetailsActivity extends AppCompatActivity implements MealDetail
     private void adjustCardViewAlpha(int scrollY) {
         int maxScroll = imageViewMealDetailsMeal.getMeasuredHeight();
         float alphaRatio = (float) scrollY / maxScroll;
-        int alphaValue = (int) (255 * alphaRatio);  // 255 is the maximum value for alpha
-        int backgroundColor = Color.argb(alphaValue, 255, 255, 255);  // Adjusts the alpha from 0 to 255
+        int alphaValue = (int) (255 * alphaRatio);
+        int backgroundColor = Color.argb(alphaValue, 255, 255, 255);
         cardToolbarMealDetails.setCardBackgroundColor(backgroundColor);
     }
-    private void setUpFavButton(Meal meal){
-        if(meal.isFavorite())
+
+    private void setUpFavButton(Meal meal) {
+        if (meal.isFavorite())
             btnCardViewMealDetailsAddToFav.setImageResource(R.drawable.fillheart);
         else
             btnCardViewMealDetailsAddToFav.setImageResource(R.drawable.outlineheartwhite);
         btnCardViewMealDetailsAddToFav.setOnClickListener((e) -> {
-            if(meal.isFavorite()){
+            if (meal.isFavorite()) {
                 btnCardViewMealDetailsAddToFav.setImageResource(R.drawable.outlineheartwhite);
-               presenter.deleteMeal(meal);
+                presenter.deleteMeal(meal);
                 meal.setFavorite(false);
-            }
-            else{
-               presenter.insertMeal(meal);
+            } else {
+                presenter.insertMeal(meal);
                 meal.setFavorite(true);
                 btnCardViewMealDetailsAddToFav.setImageResource(R.drawable.fillheart);
             }
@@ -130,16 +123,13 @@ public class MealDetailsActivity extends AppCompatActivity implements MealDetail
 
     }
 
-    private void setOnClickListener(Object o) {
-    }
-
     public void showMealDetails(Meal meal) {
-     
+
         Glide.with(this).load(meal.getStrMealThumb()).apply(new RequestOptions()
                 .placeholder(R.drawable.ingradient)
                 .error(R.drawable.ic_launcher_foreground)).into(imageViewMealDetailsMeal);
 
-        Glide.with(this).load("https://flagsapi.com/"+ CuisineAreaEnum.getCountryCodeByArea(meal.getStrArea())+"/shiny/64.png").apply(new RequestOptions()
+        Glide.with(this).load("https://flagsapi.com/" + CuisineAreaEnum.getCountryCodeByArea(meal.getStrArea()) + "/shiny/64.png").apply(new RequestOptions()
                 .placeholder(R.drawable.ingradient)
                 .error(R.drawable.ic_launcher_foreground)).into(imageViewMealsDetailsCountriesFlags);
 
@@ -149,5 +139,10 @@ public class MealDetailsActivity extends AppCompatActivity implements MealDetail
         webViewYoutubeVideo.loadUrl(meal.getStrYoutube());
 
 
+    }
+
+    @Override
+    public void showError(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 }
