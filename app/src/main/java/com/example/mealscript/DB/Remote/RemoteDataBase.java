@@ -22,9 +22,7 @@ public class RemoteDataBase {
 
     public void insertUser(User user){
         remoteFireStore.collection("users").document(user.getUserId())
-                .set(user)
-                .addOnSuccessListener(aVoid -> Log.i("TAGHOMEPAGE", "\"Firestore\", \"User successfully written!\": "))
-                .addOnFailureListener(e -> Log.w("TAGHOMEPAGE", "Error writing user", e));
+                .set(user);
     }
 
     public void insertFavoriteMealList(List<FavoriteMeal> favoriteMealList){
@@ -69,6 +67,18 @@ public class RemoteDataBase {
             if (documentSnapshot.exists()) {
                 List<PlannerMeal> plannerMealList = documentSnapshot.toObject(User.class).getPlannerMealList();
                 callback.updatePlannerLocalDataBase(plannerMealList);
+            }
+        }).addOnFailureListener(e -> callback.displayErrorMessage(e.getMessage()));
+
+    }
+    public void getUserDetails(CallbackForProfile callback){
+        AuthManager authManager = new AuthManager();
+        DocumentReference userDocRef = remoteFireStore.collection("users").document(authManager.getCurrentUserId());
+        userDocRef.get().addOnSuccessListener(documentSnapshot -> {
+            if (documentSnapshot.exists()) {
+                String name = documentSnapshot.toObject(User.class).getDisplayName();
+                String email = documentSnapshot.toObject(User.class).getEmail();
+                callback.getUserDetails(name,email);
             }
         }).addOnFailureListener(e -> callback.displayErrorMessage(e.getMessage()));
 

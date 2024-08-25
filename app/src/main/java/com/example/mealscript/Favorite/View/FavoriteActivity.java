@@ -2,7 +2,6 @@ package com.example.mealscript.Favorite.View;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -10,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mealscript.Favorite.Presenter.FavoritePresenter;
+import com.example.mealscript.Favorite.Presenter.FavoritePresenterImpl;
 import com.example.mealscript.MealDetails.Views.MealDetailsActivity;
 import com.example.mealscript.Model.FavoriteMeal;
 import com.example.mealscript.Model.Meal;
@@ -35,7 +35,7 @@ public class FavoriteActivity extends AppCompatActivity implements  FavoriteActi
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
         toolBarFavMeals.setNavigationOnClickListener(v -> finish());
-        presenter = new FavoritePresenter(this,this);
+        presenter = new FavoritePresenterImpl(this,this);
         presenter.getFavoriteMeals();
         favoriteRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         favoriteRecyclerViewAdapter =new FavoritesRecyclerViewAdapter(this, new ArrayList<>());

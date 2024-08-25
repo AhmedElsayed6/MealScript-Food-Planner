@@ -6,16 +6,43 @@
     android:layout_height="match_parent"
     tools:context=".Profile.View.ProfileActivity">
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardToolBarProfilePage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="#00FFFFFF"
+        app:elevation="2dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolBarProfilePage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="?attr/actionBarTheme"
+            app:cardBackgroundColor="#80FFFFFF"
+            app:navigationIcon="@drawable/arrowback"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:title=" "/>
+
+    </androidx.cardview.widget.CardView>
+
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imageViewPersonalPicture"
         android:layout_width="0dp"
         android:layout_height="200dp"
         android:layout_gravity="start"
+        android:layout_marginTop="20dp"
         android:src="@drawable/genericman"
         app:civ_border_color="#FFFFFF"
         app:civ_border_width="2dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cardToolBarProfilePage" />
 
     <Button
         android:id="@+id/btnSignOut"
@@ -41,11 +68,59 @@
         android:id="@+id/btnSync"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="30dp"
         android:text="@string/Sync"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView20" />
+
+    <TextView
+        android:id="@+id/textView16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/roboto_medium_italic"
+        android:text="@string/Name"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageViewPersonalPicture" />
+
+    <TextView
+        android:id="@+id/textView20"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/roboto_medium_italic"
+        android:text="@string/loginScreenEmailText"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/textView16"
+        app:layout_constraintTop_toBottomOf="@+id/textView16" />
+
+    <TextView
+        android:id="@+id/textViewName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:fontFamily="@font/roboto_medium_italic"
+        android:text="Ahmed Elsayed"
+        android:textSize="16sp"
+        android:textStyle="italic"
+        app:layout_constraintStart_toEndOf="@+id/textView16"
+        app:layout_constraintTop_toTopOf="@+id/textView16" />
+
+    <TextView
+        android:id="@+id/textViewEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Email"
+        android:fontFamily="@font/roboto_medium_italic"
+        android:textSize="16sp"
+        android:textStyle="italic"
+        app:layout_constraintStart_toStartOf="@+id/textViewName"
+        app:layout_constraintTop_toTopOf="@+id/textView20" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

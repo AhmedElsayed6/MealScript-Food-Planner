@@ -1,6 +1,7 @@
 package com.example.mealscript.Profile.Presenter;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.example.mealscript.Model.AuthManager;
 import com.example.mealscript.DB.Remote.RemoteDataBase;
@@ -61,6 +62,15 @@ public class ProfilePagePresenter implements CallbackForProfile {
         remoteDataBase.insertIntoPlannerTable(this);
     }
 
+    public void setUserDetails() {
+        if(!authManager.isGuestMode()){
+            remoteDataBase = new RemoteDataBase();
+            remoteDataBase.getUserDetails(this);
+        }
+
+        else
+            view.setUserDetails("Guest","Guest");
+    }
 
     @Override
     public void updateFavoriteLocalDataBase(List<FavoriteMeal> favoriteMealList) {
@@ -72,8 +82,15 @@ public class ProfilePagePresenter implements CallbackForProfile {
         repo.replacePlannerMealListForFireStore(plannerMealList).subscribeOn(Schedulers.io()).subscribe();
     }
 
+
     @Override
     public void displayErrorMessage(String errorMessage) {
 
+    }
+
+    @Override
+    public void getUserDetails(String name, String email) {
+        Log.i("AHMEDEIID", "getUserDetails: "+ name + email);
+        view.setUserDetails(name,email);
     }
 }

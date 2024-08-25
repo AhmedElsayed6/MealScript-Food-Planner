@@ -22,7 +22,7 @@ public enum DayOfTheWeekEnum {
         try {
             return DayOfTheWeekEnum.valueOf(dayName.toUpperCase()).getDayNumber();
         } catch (IllegalArgumentException e) {
-            return -1; // Return -1 if the day name is not valid
+            return -1;
         }
     }
 }

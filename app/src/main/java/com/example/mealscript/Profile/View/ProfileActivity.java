@@ -5,8 +5,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.example.mealscript.Auth.Presenters.CustomDialog;
 import com.example.mealscript.Home.Views.HomeActivity;
@@ -18,15 +21,24 @@ public class ProfileActivity extends AppCompatActivity implements ProfilePageInt
     Button btnSignOut ,btnSync , btnBackUp;
     ProfilePagePresenter presenter;
     CustomDialog customDialog;
+    Toolbar toolBarProfilePage;
+    TextView textViewName,textViewEmail;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         btnSignOut = findViewById(R.id.btnSignOut);
         btnSync = findViewById(R.id.btnSync);
+        textViewEmail = findViewById(R.id.textViewEmail);
+        textViewName = findViewById(R.id.textViewName);
+        toolBarProfilePage = findViewById(R.id.toolBarProfilePage);
         btnBackUp = findViewById(R.id.btnBackUp);
         customDialog = new CustomDialog(this);
-
+        toolBarProfilePage.setTitle("Profile");
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+        toolBarProfilePage.setNavigationOnClickListener(v -> finish());
         presenter = presenter.getInstance(this,this);
         btnSignOut.setOnClickListener((e)->{
             presenter.SignOut();
@@ -64,5 +76,22 @@ public class ProfileActivity extends AppCompatActivity implements ProfilePageInt
         });
 
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        presenter.setUserDetails();
+    }
+
+    @Override
+    public void showErrorMessage(String errorMessage) {
+        Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void setUserDetails(String userName, String userEmail) {
+        textViewEmail.setText(userEmail);
+        textViewName.setText(userName);
     }
 }

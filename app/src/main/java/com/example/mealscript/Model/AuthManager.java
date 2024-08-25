@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import io.reactivex.rxjava3.annotations.NonNull;
 
 public class AuthManager {
-    private static String TAG = "AuthManager";
     private  RemoteDataBase remoteDataBase;
     public static boolean isIsGuest() {
         return isGuest;
@@ -44,7 +43,6 @@ public class AuthManager {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                    Log.i(TAG, "onComplete Login: success ");
                     presenter.onSuccess();
                     setGuestMode(false);
                 } else {
@@ -89,14 +87,17 @@ public class AuthManager {
                             FirebaseAuth.getInstance().signInWithCredential(credential)
                                     .addOnCompleteListener(authTask -> {
                                         if (authTask.isSuccessful()) {
-                                            remoteDataBase = new RemoteDataBase();
-                                            User user = new User();
-                                            user.setDisplayName(account.getDisplayName());
-                                            user.setEmail(account.getEmail());
-                                            user.setUserId(task.getResult().getId());
-                                            user.setFavoriteMealList(new ArrayList<FavoriteMeal>());
-                                            user.setPlannerMealList(new ArrayList<PlannerMeal>());
-                                            remoteDataBase.insertUser(user);
+                                            boolean isNewUser = authTask.getResult().getAdditionalUserInfo().isNewUser();
+                                            if(isNewUser){
+                                                remoteDataBase = new RemoteDataBase();
+                                                User user = new User();
+                                                user.setDisplayName(account.getDisplayName());
+                                                user.setEmail(account.getEmail());
+                                                user.setUserId(mAuth.getCurrentUser().getUid());
+                                                user.setFavoriteMealList(new ArrayList<FavoriteMeal>());
+                                                user.setPlannerMealList(new ArrayList<PlannerMeal>());
+                                                remoteDataBase.insertUser(user);
+                                            }
                                             setGuestMode(false);
                                             presenter.onSuccess();
                                         } else {

@@ -3,6 +3,7 @@ package com.example.mealscript.Repo;
 import android.content.Context;
 
 import com.example.mealscript.DB.Local.MealLocalDataSource;
+import com.example.mealscript.DB.Local.MealLocalDataSourceImpl;
 import com.example.mealscript.DB.Local.Utils;
 import com.example.mealscript.Model.Categories;
 import com.example.mealscript.Model.Category;
@@ -41,7 +42,7 @@ public class Repo {
         }
         Repo.context = context;
         remoteDataSource = MealRemoteDataSource.getInstance();
-        localDataSource = MealLocalDataSource.getInstance(context);
+        localDataSource = MealLocalDataSourceImpl.getInstance(context);
 
         return instance;
     }
