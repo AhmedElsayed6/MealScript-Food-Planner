@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.example.mealscript.Filter.Presenter.FilterPagePresenter;
+import com.example.mealscript.Filter.Presenter.FilterPagePresenterImpl;
 import com.example.mealscript.Model.Meal;
 import com.example.mealscript.R;
 
@@ -33,7 +34,7 @@ public class FilterActivity extends AppCompatActivity implements FilterPageInter
         filterRecyclerViewAdapter = new FilterRecyclerViewAdapter(this, new ArrayList<Meal>());
         filterRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         filterRecyclerView.setAdapter(filterRecyclerViewAdapter);
-        presenter = new FilterPagePresenter(this,this);
+        presenter = new FilterPagePresenterImpl(this,this);
         Intent from = getIntent();
         String location = from.getStringExtra("location");
         String type = from.getStringExtra("type");
