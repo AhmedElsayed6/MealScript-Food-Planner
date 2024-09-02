@@ -7,22 +7,12 @@ import java.util.regex.Pattern;
 
 public class LoginPresenterImpl implements AuthPresenter, LoginPresenter {
 
-    private static LoginPageInterface view;
+    private LoginPageInterface view;
     private AuthManager authManager;
-    private static LoginPresenter instance = null;
 
 
-    private LoginPresenterImpl(LoginPageInterface view) {
+    public LoginPresenterImpl(LoginPageInterface view) {
         this.view = view;
-    }
-
-    public static LoginPresenter getInstance(LoginPageInterface view) {
-
-        if (instance == null)
-            instance = new LoginPresenterImpl(view);
-        LoginPresenterImpl.view = view;
-        return instance;
-
     }
 
 
@@ -45,7 +35,7 @@ public class LoginPresenterImpl implements AuthPresenter, LoginPresenter {
 
         if (isValid) {
             authManager = new AuthManager();
-            authManager.Login(email, password , this);
+            authManager.Login(email, password, this);
         }
 
     }

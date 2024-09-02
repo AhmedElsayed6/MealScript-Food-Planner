@@ -2,6 +2,8 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.google.gms.google.services)
     id("androidx.navigation.safeargs")
+    id("kotlin-kapt")
+
 }
 
 android {
@@ -66,4 +68,7 @@ dependencies {
     annotationProcessor("androidx.room:room-compiler:2.6.1")
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+    implementation("com.google.dagger:hilt-android:2.44")
+
 }
+

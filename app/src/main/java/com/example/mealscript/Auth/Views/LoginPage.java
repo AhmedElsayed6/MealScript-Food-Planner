@@ -49,7 +49,7 @@ public class LoginPage extends Fragment implements LoginPageInterface {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        presenter = LoginPresenterImpl.getInstance(this);
+        presenter = new  LoginPresenterImpl(this);
         textInputLoginEmail = view.findViewById(R.id.textInputLoginEmail);
         textInputLoginPassword = view.findViewById(R.id.textInputLoginPassword);
         btnLoginLogin = view.findViewById(R.id.btnLoginLogin);

@@ -3,6 +3,8 @@ package com.example.mealscript.Profile.View;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
@@ -13,15 +15,21 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.example.mealscript.Auth.Presenters.CustomDialog;
 import com.example.mealscript.Home.Views.HomeActivity;
+import com.example.mealscript.Network.InternetStatesBroadcastReceiver;
+import com.example.mealscript.Network.NetworkObserver;
 import com.example.mealscript.Profile.Presenter.ProfilePagePresenter;
 import com.example.mealscript.R;
+import com.example.mealscript.Repository.Repository;
 import com.example.mealscript.Splash.View.SplashActivity;
+import com.google.android.material.snackbar.Snackbar;
 
-public class ProfileActivity extends AppCompatActivity implements ProfilePageInterface {
+public class ProfileActivity extends AppCompatActivity implements ProfilePageInterface , NetworkObserver {
     Button btnSignOut ,btnSync , btnBackUp;
     ProfilePagePresenter presenter;
     CustomDialog customDialog;
     Toolbar toolBarProfilePage;
+    InternetStatesBroadcastReceiver internetReceiver;
+    Snackbar snackbar;
     TextView textViewName,textViewEmail;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,13 +41,17 @@ public class ProfileActivity extends AppCompatActivity implements ProfilePageInt
         textViewName = findViewById(R.id.textViewName);
         toolBarProfilePage = findViewById(R.id.toolBarProfilePage);
         btnBackUp = findViewById(R.id.btnBackUp);
+        internetReceiver = new InternetStatesBroadcastReceiver(this);
+        IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(internetReceiver, filter);
+
         customDialog = new CustomDialog(this);
         toolBarProfilePage.setTitle("Profile");
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
         toolBarProfilePage.setNavigationOnClickListener(v -> finish());
-        presenter = presenter.getInstance(this,this);
+        presenter = presenter.getInstance(this, Repository.getInstance(this));
         btnSignOut.setOnClickListener((e)->{
             presenter.SignOut();
             Intent goToSplash = new Intent(this, SplashActivity.class);
@@ -93,5 +105,14 @@ public class ProfileActivity extends AppCompatActivity implements ProfilePageInt
     public void setUserDetails(String userName, String userEmail) {
         textViewEmail.setText(userEmail);
         textViewName.setText(userName);
+    }
+
+    @Override
+    public void showNetowrkErrorSnackBar(String message) {
+        snackbar = Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_INDEFINITE).setAction("Retry", view -> {
+            snackbar.dismiss();
+            this.recreate();
+        });
+        snackbar.show();
     }
 }

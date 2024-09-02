@@ -46,7 +46,7 @@ public class SignupPage extends Fragment implements SignupPageInterface {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        presenter = SignupPresenterImpl.getInstance(this);
+        presenter = new SignupPresenterImpl(this);
         textInputSignupPasswordConfirm = view.findViewById(R.id.textInputSignupPasswordConfirm);
         textInputSignupDisplayName = view.findViewById(R.id.textInputSignupDisplayName);
         textInputSignupEmail = view.findViewById(R.id.textInputSignupEmail);

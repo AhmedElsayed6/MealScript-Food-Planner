@@ -6,14 +6,11 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
+public class InternetStatesBroadcastReceiver extends BroadcastReceiver  {
 
-import com.example.mealscript.Home.Views.HomeActivityInterface;
+    private final NetworkObserver view;
 
-public class InternetStatesBroadcastReceiver extends BroadcastReceiver {
-
-    private final HomeActivityInterface view;
-
-    public InternetStatesBroadcastReceiver(HomeActivityInterface view) {
+    public InternetStatesBroadcastReceiver(NetworkObserver view) {
         this.view = view;
     }
 
@@ -22,7 +19,7 @@ public class InternetStatesBroadcastReceiver extends BroadcastReceiver {
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
         if (networkInfo == null || !networkInfo.isConnected()) {
-          view.ShowSnackbar("No internet connection");
+          view.showNetowrkErrorSnackBar("No internet connection");
         }
     }
 }

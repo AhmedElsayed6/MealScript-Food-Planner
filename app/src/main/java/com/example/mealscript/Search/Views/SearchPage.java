@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.example.mealscript.Model.Meal;
 import com.example.mealscript.R;
+import com.example.mealscript.Repository.Repository;
 import com.example.mealscript.Search.Presenter.SearchPagePresenter;
 import com.example.mealscript.Search.Presenter.SearchPagePresenterImpl;
 import com.google.android.material.chip.Chip;
@@ -49,18 +50,17 @@ public class SearchPage extends Fragment implements SearchPageInterface {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        presenter = new SearchPagePresenterImpl(this, this.getContext());
+        presenter = new SearchPagePresenterImpl(this, Repository.getInstance(this.getContext()));
         chipGroupSearchCat = view.findViewById(R.id.chipGroupSearchCat);
         recyclerViewSearch = view.findViewById(R.id.recyclerViewSearch);
         searchView = view.findViewById(R.id.searchView);
         recyclerViewSearch.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         searchRecyclerViewAdapter = new SearchRecyclerViewAdapter(this, new ArrayList<Meal>());
         recyclerViewSearch.setAdapter(searchRecyclerViewAdapter);
-
         searchView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_DONE || actionId == EditorInfo.IME_ACTION_GO || actionId == EditorInfo.IME_ACTION_NEXT ) {
+                if (actionId == EditorInfo.IME_ACTION_DONE || actionId == EditorInfo.IME_ACTION_GO || actionId == EditorInfo.IME_ACTION_NEXT) {
                     String enteredText = searchView.getText().toString();
                     Chip selectedChip = view.findViewById(chipGroupSearchCat.getCheckedChipId());
                     String selectedText = selectedChip != null ? selectedChip.getText().toString() : "";
@@ -70,10 +70,7 @@ public class SearchPage extends Fragment implements SearchPageInterface {
                 return false;
             }
         });
-
-
     }
-
 
     @Override
     public void viewData(List<Meal> meals) {
@@ -87,7 +84,6 @@ public class SearchPage extends Fragment implements SearchPageInterface {
 
     @Override
     public void addToFavorite(Meal meal) {
-
         presenter.insertMeal(meal);
     }
 
@@ -95,4 +91,5 @@ public class SearchPage extends Fragment implements SearchPageInterface {
     public void removeFromFavorite(Meal meal) {
         presenter.deleteMeal(meal);
     }
+
 }

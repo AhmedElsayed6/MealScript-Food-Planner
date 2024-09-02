@@ -1,4 +1,4 @@
-package com.example.mealscript.Repo;
+package com.example.mealscript.Repository;
 
 import android.content.Context;
 
@@ -25,22 +25,22 @@ import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
-public class Repo {
+public class Repository {
     private static MealRemoteDataSource remoteDataSource;
     private static MealLocalDataSource localDataSource;
     private Utils utils;
-    private static Repo instance = null;
+    private static Repository instance = null;
     private static Context context;
 
-    private Repo(Context context) {
+    private Repository(Context context) {
         this.context = context;
     }
 
-    public static Repo getInstance(Context context) {
+    public static Repository getInstance(Context context) {
         if (instance == null) {
-            instance = new Repo(context);
+            instance = new Repository(context);
         }
-        Repo.context = context;
+        Repository.context = context;
         remoteDataSource = MealRemoteDataSource.getInstance();
         localDataSource = MealLocalDataSourceImpl.getInstance(context);
 
@@ -75,6 +75,7 @@ public class Repo {
     }
 
     public Observable<Meals> searchByName(String mealName) {
+
         return remoteDataSource.searchByName(mealName);
     }
 

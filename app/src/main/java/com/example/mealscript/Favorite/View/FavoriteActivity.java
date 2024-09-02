@@ -14,6 +14,7 @@ import com.example.mealscript.MealDetails.Views.MealDetailsActivity;
 import com.example.mealscript.Model.FavoriteMeal;
 import com.example.mealscript.Model.Meal;
 import com.example.mealscript.R;
+import com.example.mealscript.Repository.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +36,7 @@ public class FavoriteActivity extends AppCompatActivity implements  FavoriteActi
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
         toolBarFavMeals.setNavigationOnClickListener(v -> finish());
-        presenter = new FavoritePresenterImpl(this,this);
+        presenter = new FavoritePresenterImpl(this, Repository.getInstance(this));
         presenter.getFavoriteMeals();
         favoriteRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         favoriteRecyclerViewAdapter =new FavoritesRecyclerViewAdapter(this, new ArrayList<>());

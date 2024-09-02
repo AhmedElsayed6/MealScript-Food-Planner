@@ -74,7 +74,7 @@ public class WelcomePage extends Fragment implements WelcomePageInterface {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        presenter = WelcomePresenterImpl.getInstance(this);
+        presenter = new WelcomePresenterImpl(this);
         videoViewWelcome = view.findViewById(R.id.videoViewWelcome);
         textViewWelcomeLoginbtn = view.findViewById(R.id.textViewWelcomeLoginbtn);
         btnWelcomeSignupEmail = view.findViewById(R.id.btnWelcomeSignupEmail);

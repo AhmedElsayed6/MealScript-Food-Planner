@@ -1,28 +1,18 @@
 package com.example.mealscript.Auth.Presenters;
 
 
-import com.example.mealscript.Model.AuthManager;
 import com.example.mealscript.Auth.Views.SignupPageInterface;
+import com.example.mealscript.Model.AuthManager;
 
 import java.util.regex.Pattern;
 
 public class SignupPresenterImpl implements AuthPresenter, SignupPresenter {
     private AuthManager authManager;
+    private SignupPageInterface view;
 
-    private static SignupPageInterface view;
-    private static SignupPresenter instance = null;
 
-    private SignupPresenterImpl(SignupPageInterface view) {
+    public SignupPresenterImpl(SignupPageInterface view) {
         this.view = view;
-    }
-
-    public static SignupPresenter getInstance(SignupPageInterface view) {
-
-        if (instance == null)
-            instance = new SignupPresenterImpl(view);
-        SignupPresenterImpl.view=view;
-        return instance;
-
     }
 
 
@@ -56,7 +46,7 @@ public class SignupPresenterImpl implements AuthPresenter, SignupPresenter {
 
         if (isValid) {
             authManager = new AuthManager();
-            authManager.Signup(email, password, name , this);
+            authManager.Signup(email, password, name, this);
         }
 
     }

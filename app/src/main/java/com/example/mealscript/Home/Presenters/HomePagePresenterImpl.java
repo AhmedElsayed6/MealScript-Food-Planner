@@ -6,34 +6,31 @@ import com.example.mealscript.Home.Views.HomePageInterface;
 import com.example.mealscript.Model.AuthManager;
 import com.example.mealscript.Model.FavoriteMeal;
 import com.example.mealscript.Model.Meal;
-import com.example.mealscript.Repo.Repo;
+import com.example.mealscript.Repository.Repository;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class HomePagePresenterImpl implements HomePagePresenter {
     private static HomePagePresenter instance = null;
-    private static HomePageInterface view;
-    private static Repo repo;
+    private  HomePageInterface view;
+    private  Repository repository;
 
-    private HomePagePresenterImpl(HomePageInterface view, Context context) {
+    private HomePagePresenterImpl(HomePageInterface view , Repository repo) {
         this.view = view;
-        HomePagePresenterImpl.repo = Repo.getInstance(context);
+        repository = repo;
     }
 
 
-    public static HomePagePresenter getInstance(HomePageInterface view, Context context) {
+    public static HomePagePresenter getInstance(HomePageInterface view,  Repository repo) {
         if (instance == null)
-            instance = new HomePagePresenterImpl(view, context);
-
-        HomePagePresenterImpl.repo = Repo.getInstance(context);
-        HomePagePresenterImpl.view = view;
+            instance = new HomePagePresenterImpl(view, repo);
         return instance;
     }
 
     @Override
     public void getData() {
-        repo.getHomePageData().subscribe(
+        repository.getHomePageData().subscribe(
                 updatedItems -> {
                     view.setData(updatedItems);
                 },
@@ -48,7 +45,7 @@ public class HomePagePresenterImpl implements HomePagePresenter {
         AuthManager authManager = new AuthManager();
         if (!authManager.isGuestMode()) {
             FavoriteMeal favMeal = new FavoriteMeal(authManager.getCurrentUserId(), meal.getStrMeal(), meal.getIdMeal(), meal.getStrMealThumb());
-            repo.insertFavoriteMeal(favMeal).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+            repository.insertFavoriteMeal(favMeal).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                     .subscribe(() -> {
                             },
                             error -> {
@@ -64,7 +61,7 @@ public class HomePagePresenterImpl implements HomePagePresenter {
     public void deleteMeal(Meal meal) {
         AuthManager authManager = new AuthManager();
         if (!authManager.isGuestMode()) {
-            repo.deleteByUserIdAndIdMeal(authManager.getCurrentUserId(), meal.getIdMeal()).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+            repository.deleteByUserIdAndIdMeal(authManager.getCurrentUserId(), meal.getIdMeal()).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                     .subscribe();
         } else {
             view.showGuestModeMessage("You can't add or remove favorite items guest mode!");

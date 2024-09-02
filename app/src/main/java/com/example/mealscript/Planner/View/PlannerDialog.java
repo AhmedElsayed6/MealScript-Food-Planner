@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.mealscript.Planner.Presenter.PlannerDialogPresenterImpl;
 import com.example.mealscript.R;
+import com.example.mealscript.Repository.Repository;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 
@@ -28,7 +29,7 @@ public class PlannerDialog implements PlannerDialogInterface {
         this.mealId = mealId;
         this.mealName = mealName;
         this.mealImage = mealImage;
-        this.presenter = new PlannerDialogPresenterImpl(this,context);
+        this.presenter = new PlannerDialogPresenterImpl(this, Repository.getInstance(context));
     }
 
     public void showDialog() {
